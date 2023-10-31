@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfClient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Client>
+    <Surname>Сергеев</Surname>
+    <FirstName>Иван</FirstName>
+    <LastName>Альбертович</LastName>
+    <PasportData>7985 139542</PasportData>
+    <AccountStatus>Закрыт</AccountStatus>
+    <ValueBalance>10</ValueBalance>
+    <AccountType>Сберегательный</AccountType>
+    <IsOpen>false</IsOpen>
+    <AccountNumber>50431802900000005899</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+  <Client>
+    <Surname>Тихонов</Surname>
+    <FirstName>Анатолий</FirstName>
+    <LastName>Семёнович</LastName>
+    <PasportData>5963 169403</PasportData>
+    <AccountStatus>Открыт</AccountStatus>
+    <ValueBalance>4590</ValueBalance>
+    <AccountType>Текущий</AccountType>
+    <IsOpen>true</IsOpen>
+    <AccountNumber>40452720500000009342</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+  <Client>
+    <Surname>Сергеев</Surname>
+    <FirstName>Пётр</FirstName>
+    <LastName>Афанасович</LastName>
+    <PasportData>3971 561485</PasportData>
+    <AccountStatus>Закрытый</AccountStatus>
+    <ValueBalance>15</ValueBalance>
+    <AccountType>Текущий</AccountType>
+    <IsOpen>false</IsOpen>
+    <AccountNumber>40827046900000003303</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+  <Client>
+    <Surname>Тобирамов</Surname>
+    <FirstName>Олег</FirstName>
+    <LastName>Олегович</LastName>
+    <PasportData>8510 673419</PasportData>
+    <AccountStatus>Открыт</AccountStatus>
+    <ValueBalance>12030</ValueBalance>
+    <AccountType>Сберегательный</AccountType>
+    <IsOpen>true</IsOpen>
+    <AccountNumber>40710493500000009654</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+  <Client>
+    <Surname>Абрамов</Surname>
+    <FirstName>Геннадий</FirstName>
+    <LastName>Иванович</LastName>
+    <PasportData>7985 023647</PasportData>
+    <AccountStatus>Открыт</AccountStatus>
+    <ValueBalance>0</ValueBalance>
+    <AccountType>Сберегательный</AccountType>
+    <IsOpen>true</IsOpen>
+    <AccountNumber>50701857100000004895</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+  <Client>
+    <Surname>Силивёрстов</Surname>
+    <FirstName>Антон</FirstName>
+    <LastName>Артёмович</LastName>
+    <PasportData>8951 023647</PasportData>
+    <AccountStatus>Открыт</AccountStatus>
+    <ValueBalance>0</ValueBalance>
+    <AccountType>Сберегательный</AccountType>
+    <IsOpen>true</IsOpen>
+    <AccountNumber>40480532900000003956</AccountNumber>
+    <Currency>RUB</Currency>
+  </Client>
+</ArrayOfClient>
