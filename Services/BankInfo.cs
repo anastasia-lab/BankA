@@ -44,9 +44,9 @@ namespace BankA.Services
         /// Добавление в коллекцию нового клиента
         /// </summary>
         /// <param name="client"> Новый клиент </param>
-        public void AddNewClient(Client client)
+        public void AddNewClient(ObservableCollection<Client> Clients,Client client)
         {
-            ClientBankAccount.Add(client);
+            Clients.Add(client);
             DataBase.SaveXmlFile(ClientBankAccount);
         }
 

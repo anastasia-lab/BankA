@@ -66,7 +66,6 @@ namespace BankA.ViewModel
             if (DataGridListPerson.SelectedItem is Client selected)
             {
                 SelectedData = selected;
-                Clients.Add(SelectedData);
                 ShowAccountSelectedClientInListView();
             }
         }
@@ -87,6 +86,17 @@ namespace BankA.ViewModel
             };
 
             ListViewAccounts.ItemsSource = DataSelectedClient;
+        }
+
+        private void ButtonOpenNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void ButtonAddNewClient_Click(object sender, RoutedEventArgs e)
+        {
+            Open_CloseAccountWindow OpenToCreateNewClient = new(Clients);
+            OpenToCreateNewClient.ShowDialog();
         }
 
         #endregion
