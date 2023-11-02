@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankA.ViewModel"
         mc:Ignorable="d"
-        Title="Личная информация" Height="445" Width="533" WindowStartupLocation="CenterScreen">
+        Title="Личная информация" Height="474" Width="533" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
 
@@ -119,13 +119,27 @@
                VerticalAlignment="Top"
                Style="{StaticResource TextFont}"/>
 
-        <TextBox x:Name="textBoxCurrency" 
+        <TextBox x:Name="TextBoxCurrency" 
                  HorizontalAlignment="Left" 
                  Margin="20,330,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource TextBoxStyle}"/>
 
+        <Label x:Name="LabelAccountNumber" 
+               Content="Номер счёта" 
+               HorizontalAlignment="Left" 
+               Margin="20,360,0,0" 
+               VerticalAlignment="Top"
+               Style="{StaticResource TextFont}"/>
+
+        <TextBox x:Name="TextBoxAccountNumber" 
+                 HorizontalAlignment="Left" 
+                 Margin="20,390,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Style="{StaticResource TextBoxStyle}"/>
+        
         <Button x:Name="ButtonOpenAccount" 
                 Grid.Column="1" 
                 Content="Открыть счёт" 
@@ -141,7 +155,7 @@
                 HorizontalAlignment="Center" 
                 Margin="0,123,0,0" 
                 VerticalAlignment="Top"
-                Style="{StaticResource BackgroundButton}"/>
+                Style="{StaticResource BackgroundButton}" Click="ButtonCloseAccount_Click"/>
 
     </Grid>
 </Window>

@@ -330,7 +330,7 @@
                                 Height="26" 
                                 Width="124"
                                 Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2"/>
+                                Grid.ColumnSpan="2" Click="buttonCloseAccount_Click"/>
 
                         <Button x:Name="buttonTransfer" 
                                 Content="Перевести" 

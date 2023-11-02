@@ -51,9 +51,6 @@ namespace BankA.Services
             Balance.Money += value.Money;
         }
 
-        //public void Transfer(long amount, object toTransfer, object adressesTransfer)
-        //{
-        //    (toTransfer as IAccount<Bank>).SetValue((adressesTransfer as IAccount<Bank>).GetValue(amount));
-        //}
+       
     }
 }
