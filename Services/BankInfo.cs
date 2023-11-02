@@ -17,14 +17,14 @@ namespace BankA.Services
         public long Money { get; set; }
 
         // коллекция для хранения списка клиентов
-        //public ObservableCollection<Client> ClientBankAccount { get; set; }
+        public ObservableCollection<Client> ClientBankAccount { get; set; }
 
         #endregion
 
         #region Конструктор
         public BankInfo()
         {
-            //ClientBankAccount = new ObservableCollection<Client>();
+            ClientBankAccount = new ObservableCollection<Client>();
         }
         #endregion
 
@@ -34,37 +34,35 @@ namespace BankA.Services
         /// Получение списка клиентов
         /// </summary>
         /// <returns> Возвращает список клиентов из файла </returns>
-        public static ObservableCollection<Client> GetListClients(ObservableCollection<Client> ClientsList)
+        public ObservableCollection<Client> GetListClients()
         {
-            DataBase.ReadXmlFile("clients.xml", ClientsList);
-            return ClientsList;
+            DataBase.ReadXmlFile("clients.xml", ClientBankAccount);
+            return ClientBankAccount;
         }
 
         /// <summary>
         /// Добавление в коллекцию нового клиента
         /// </summary>
         /// <param name="client"> Новый клиент </param>
-        /// <param name="ClientsList"> Список клиентов </param>
-        public static void AddNewClient(ObservableCollection<Client> ClientsList,Client client)
+        public void AddNewClient(Client client)
         {
-            ClientsList.Add(client);
-            DataBase.SaveXmlFile(ClientsList);
+            ClientBankAccount.Add(client);
+            DataBase.SaveXmlFile(ClientBankAccount);
         }
 
         /// <summary>
-        /// Проверка нового счёта на совпадение с существующими
+        /// Проверка на совпадение нового счёта
         /// </summary>
         /// <param name="clientAccountNumber"> Новый счёт клиента </param>
-        /// <param name="ClientsList"> Список клиентов </param>
         /// <returns> Возаращает номер счёта клиента </returns>
         /// <exception cref="ArgumentException"></exception>
-        public static decimal GetCheckClientAccountNumber(ObservableCollection<Client> ClientsList, decimal clientAccountNumber)
+        public long GetCheckClientAccountNumber(long clientAccountNumber)
         {
-            GetListClients(ClientsList);
+            GetListClients();
 
-            for (int i = 0; i < ClientsList.Count; i++)
+            for (int i = 0; i < ClientBankAccount.Count; i++)
             {
-                if (clientAccountNumber == ClientsList[i].AccountNumber)
+                if (clientAccountNumber == ClientBankAccount[i].AccountNumber)
                     throw new ArgumentException("Кажется, такой номер счёта уже есть.");
             }
 
@@ -77,9 +75,10 @@ namespace BankA.Services
         /// <param name="isOpen"> Проверка на открытие счёта в банке</param>
         /// <param name="ClientBankAccount"> Список клиентов банка </param>
         /// <param name="index">Индекс клиента в списке </param>
-        public static void SaveEditData(ObservableCollection<Client> Clients)
+        public static void SaveEditData(bool isOpen, ObservableCollection<Client> ClientBankAccount, int index)
         {
-            DataBase.SaveXmlFile(Clients);
+            ClientBankAccount[index].IsOpen = isOpen;
+            DataBase.SaveXmlFile(ClientBankAccount);
         }
 
         #endregion

@@ -118,7 +118,7 @@
                                  Style="{StaticResource TextBoxStyle}"
                                  Text="{Binding ElementName=DataGridListPerson, Path=SelectedItem.PasportData}"/>
 
-                        <Button x:Name="ButtonAddNewClient" 
+                        <Button x:Name="buttonAddNewClient" 
                                 Content="Добавить клиента" 
                                 HorizontalAlignment="Left" 
                                 Margin="10,295,0,0" 
@@ -126,8 +126,7 @@
                                 Height="26" 
                                 Width="124"
                                 Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2" 
-                                Click="ButtonAddNewClient_Click"/>
+                                Grid.ColumnSpan="2"/>
 
                         <Button x:Name="buttonSaveChanges" 
                                 Content="Сохранить изменения" 
@@ -149,7 +148,7 @@
 
                         <ListBox x:Name="listLastChanges" 
                                  d:ItemsSource="{d:SampleData ItemCount=5}" 
-                                 Margin="186,46,10,127"
+                                 Margin="186,46,0,127"
                                  Style="{StaticResource TextFont}"/>
 
                         <CheckBox x:Name="CheckBoxChangeData" 
@@ -274,7 +273,7 @@
                                Width="114"/>
 
                         <ListView x:Name="ListViewAccounts"
-                                  Margin="172,46,10,127"
+                                  Margin="172,46,0,127"
                                   Style="{StaticResource TextFont}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
@@ -312,7 +311,7 @@
                                 Style="{StaticResource BackgroundButton}" 
                                 Grid.ColumnSpan="2"/>
 
-                        <Button x:Name="ButtonOpenNewAccount" 
+                        <Button x:Name="buttonOpenNewAccount" 
                                 Content="Открыть счёт" 
                                 HorizontalAlignment="Left" 
                                 Margin="187,233,0,0" 
@@ -320,7 +319,7 @@
                                 Height="26" 
                                 Width="124"
                                 Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2" Click="ButtonOpenNewAccount_Click"/>
+                                Grid.ColumnSpan="2"/>
 
                         <Button x:Name="buttonCloseAccount" 
                                 Content="Закрыть счёт" 
@@ -330,7 +329,7 @@
                                 Height="26" 
                                 Width="124"
                                 Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2" Click="buttonCloseAccount_Click"/>
+                                Grid.ColumnSpan="2"/>
 
                         <Button x:Name="buttonTransfer" 
                                 Content="Перевести" 
