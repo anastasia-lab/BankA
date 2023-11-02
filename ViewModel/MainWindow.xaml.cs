@@ -24,12 +24,12 @@ namespace BankA.ViewModel
     {
         #region Объявление переменных
 
-        readonly BankInfo bank;
+        //readonly BankInfo bank;
 
         //Данные выбранного клиента
         private Client SelectedData { get; set; } = new Client();
         public string SelectedButtonText { get; } = string.Empty;
-        private ObservableCollection<Client> Clients { get; set; } = new ObservableCollection<Client>();
+        private ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace BankA.ViewModel
         {
             InitializeComponent();
 
-            bank = new BankInfo();
+            //bank = new BankInfo();
             LoadDataInDataView();
         }
 
@@ -51,7 +51,7 @@ namespace BankA.ViewModel
         /// </summary>
         private void LoadDataInDataView()
         {
-            DataGridListPerson.ItemsSource = bank.GetListClients();
+            DataGridListPerson.ItemsSource = BankInfo.GetListClients(ClientsList);
             LableInfo.Content = "Количество клиентов: " + DataGridListPerson.Items.Count;
         }
 
@@ -66,7 +66,6 @@ namespace BankA.ViewModel
             if (DataGridListPerson.SelectedItem is Client selected)
             {
                 SelectedData = selected;
-                Clients.Add(SelectedData);
                 ShowAccountSelectedClientInListView();
             }
         }
@@ -89,6 +88,32 @@ namespace BankA.ViewModel
             ListViewAccounts.ItemsSource = DataSelectedClient;
         }
 
+        private void ButtonOpenNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        /// <summary>
+        /// Кнопка "Добавить клиента" на вкладке "Информация"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonAddNewClient_Click(object sender, RoutedEventArgs e)
+        {
+            Open_CloseAccountWindow OpenToCreateNewClient = new(ClientsList);
+            OpenToCreateNewClient.ShowDialog();
+        }
+
         #endregion
+
+        private void buttonCloseAccount_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsList != null && SelectedData != null)
+            {
+                int RecordIndex = ClientsList.IndexOf(SelectedData);
+                Open_CloseAccountWindow CloseAccount = new(ClientsList, SelectedData, RecordIndex);
+                CloseAccount.ShowDialog();
+            }
+        }
     }
 }
