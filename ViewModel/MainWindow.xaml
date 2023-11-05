@@ -283,7 +283,7 @@
                             </ListView.ItemContainerStyle>
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Номер счёта" DisplayMemberBinding="{Binding AccountNumber}" Width="153"/>
+                                    <GridViewColumn Header="Номер счёта" DisplayMemberBinding="{Binding AccountsNumber}" Width="153"/>
                                     <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding AccountType}" Width="110"/>
                                     <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding AccountStatus}" Width="85"/>
                                     <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding ValueBalance}" Width="80"/>

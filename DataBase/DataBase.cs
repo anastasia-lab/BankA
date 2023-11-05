@@ -32,19 +32,20 @@ namespace BankA.DataBases
                     {
                         for (int i = 0; i < 1; i++)
                         {
-                            clients[i] = new Client
-                            {
-                                Surname = client.Surname,
-                                FirstName = client.FirstName,
-                                LastName = client.LastName,
-                                PasportData = client.PasportData,
-                                AccountType = client.AccountType,
-                                IsOpen = client.IsOpen,
-                                AccountStatus = client.AccountStatus,
-                                AccountNumber = client.AccountNumber,
-                                ValueBalance = client.ValueBalance,
-                                Currency = client.Currency,
-                            };
+                            clients[i] = new Client();
+                            clients[i].Surname = client.Surname;
+                            clients[i].FirstName = client.FirstName;
+                            clients[i].LastName = client.LastName;
+                            clients[i].PasportData = client.PasportData;
+
+                            
+                                clients[i].AccountType = client.AccountType;
+                                clients[i].IsOpen = client.IsOpen;
+                                clients[i].AccountStatus = client.AccountStatus;
+                                clients[i].AccountsNumber = client.AccountsNumber;
+                                clients[i].ValueBalance = client.ValueBalance;
+                                clients[i].Currency = client.Currency;
+                            
 
                             clientsList.Add(clients[i]);
                         }

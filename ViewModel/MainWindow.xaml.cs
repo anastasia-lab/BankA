@@ -105,7 +105,13 @@ namespace BankA.ViewModel
         }
 
         #endregion
+        
 
+        /// <summary>
+        /// Кнопка "Закрыть счёт" на вкладке "Информация"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCloseAccount_Click(object sender, RoutedEventArgs e)
         {
             if (ClientsList != null && SelectedData != null)

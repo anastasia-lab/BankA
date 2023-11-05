@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -61,7 +62,7 @@ namespace BankA.ViewModel
             textBoxPasportAccount.Text = DataClient.PasportData;
             ComboBoxAccountType.Text = DataClient.AccountType;
             TextBoxCurrency.Text = DataClient.Currency;
-            TextBoxAccountNumber.Text = DataClient.AccountNumber.ToString();
+            TextBoxAccountNumber.Text = DataClient.AccountsNumber.ToString();
         }
 
         /// <summary>
@@ -77,13 +78,12 @@ namespace BankA.ViewModel
             bool IsOpen = true;
             long ValueBalance = 0;
             string Currency = TextBoxCurrency.Text;
-            decimal AccountNumber = NewRandomAccountNumber(ClientsList);
+            string AccountType = ComboBoxAccountType.Text; //выбранное значение в ComboBox
 
-            ComboBoxItem ComboBoxItem = (ComboBoxItem)ComboBoxAccountType.SelectedItem;
-            string AccountType = ComboBoxItem.Content.ToString(); //выбранное значение в ComboBox
+            Client NewClient = new(Surname,FirstName,LastName,PasportData,AccountType,
+                                   IsOpen,AccountStatus, NewRandomAccountNumber(ClientsList), ValueBalance,Currency);
 
-            Client NewClient = new(Surname,FirstName,LastName,PasportData,AccountType, IsOpen,
-                                       AccountStatus, AccountNumber,ValueBalance,Currency);
+            ClientsList.Add(NewClient);
 
             try
             {
@@ -99,22 +99,24 @@ namespace BankA.ViewModel
         /// Генерация номера счёта клиента из двух частей
         /// </summary>
         /// <returns></returns>
-        private static decimal NewRandomAccountNumber(ObservableCollection<Client> clients)
+        private ObservableCollection<Client> NewRandomAccountNumber(ObservableCollection<Client> clients)
         {
             Random random = new();
-            decimal NewAccountNumber;
+            ObservableCollection<Client> NewAccountNumber = new();
 
-            //первая часть номера счёта клиента
-            string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
+            ////первая часть номера счёта клиента
+            //string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
 
-            //вторая часть номера счёта клиента
-            string HalfAccountNumberTwo = random.NextInt64(1000000000, 9999999999).ToString();
+            ////вторая часть номера счёта клиента
+            //string HalfAccountNumberTwo = random.NextInt64(1000000000, 9999999999).ToString();
 
-            //целый номер счёта клиента
-            string WholeNumber = HalfAccountNumberOne+HalfAccountNumberTwo;
+            ////целый номер счёта клиента
+            //string WholeNumber = HalfAccountNumberOne+HalfAccountNumberTwo;
 
-            NewAccountNumber = decimal.Parse(WholeNumber);
-            BankInfo.GetCheckClientAccountNumber(clients, NewAccountNumber);
+            int accountNumber = (int)Math.Pow(10, 19);
+            accountNumber = random.Next(accountNumber);
+
+            BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
 
             return NewAccountNumber;
         }
@@ -136,7 +138,7 @@ namespace BankA.ViewModel
         {
             if (ClientsList != null && DataClient != null)
             {
-                decimal NewAccountNumber = NewRandomAccountNumber(ClientsList);
+                //decimal NewAccountNumber = NewRandomAccountNumber(ClientsList);
             }
         }
 
@@ -148,16 +150,19 @@ namespace BankA.ViewModel
         {
             if (ClientsList != null && DataClient != null)
             {
-                if (ClientsList[RecordIndex].IsOpen == true)
+                if (ClientsList[RecordIndex].AccountsNumber.ToString() == TextBoxAccountNumber.Text)
                 {
-                    ClientsList[RecordIndex].IsOpen = false;
-                    if (ClientsList[RecordIndex].ValueBalance != 0)
-                        throw new ArgumentException("Для закрытия счёта необходимо иметь нулевой баланс");
+                    if (ClientsList[RecordIndex].IsOpen == true)
+                    {
+                        ClientsList[RecordIndex].IsOpen = false;
+                        if (ClientsList[RecordIndex].ValueBalance != 0)
+                            throw new ArgumentException("Для закрытия счёта необходимо иметь нулевой баланс");
 
-                    ClientsList.RemoveAt(RecordIndex);
-                    ClientsList.Insert(RecordIndex, DataClient);
+                        ClientsList.RemoveAt(RecordIndex);
+                        ClientsList.Insert(RecordIndex, DataClient);
 
-                    BankInfo.SaveEditData(ClientsList);
+                        BankInfo.SaveEditData(ClientsList);
+                    }
                 }
             }
         }
