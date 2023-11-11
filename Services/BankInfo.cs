@@ -47,7 +47,7 @@ namespace BankA.Services
         /// <param name="ClientsList"> Список клиентов </param>
         public static void AddNewClient(ObservableCollection<Client> ClientsList,Client client)
         {
-            ClientsList.Add(client);
+            //ClientsList.Add(client);
             DataBase.SaveXmlFile(ClientsList);
         }
 
@@ -64,7 +64,7 @@ namespace BankA.Services
 
             for (int i = 0; i < ClientsList.Count; i++)
             {
-                if (clientAccountNumber == ClientsList[i].AccountNumber)
+                if (clientAccountNumber.ToString() == ClientsList[i].AccountsNumber.ToString())
                     throw new ArgumentException("Кажется, такой номер счёта уже есть.");
             }
 

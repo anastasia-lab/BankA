@@ -45,12 +45,12 @@
                Margin="20,15,0,0" 
                VerticalAlignment="Top" 
                Height="26"
-               Style="{StaticResource TextFont}" Width="65"/>
+               Style="{StaticResource TextFont}" 
+               Width="65"/>
 
         <TextBox x:Name="textBoxSurnameAccount" 
                  HorizontalAlignment="Left" 
-                 Margin="20,45,0,0" 
-                 TextWrapping="Wrap" 
+                 Margin="20,45,0,0"  
                  VerticalAlignment="Top" 
                  Style="{StaticResource TextBoxStyle}"/>
 

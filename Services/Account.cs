@@ -29,7 +29,7 @@ namespace BankA.Services
 
         public bool IsOpen { get; set; }
 
-        public decimal AccountNumber { get; set; }
+        public ObservableCollection<Client> Accounts { get; set; }
         public T Balance { get; }
 
         public AccountType Type { get { return AccountType; } set { AccountType = value; } }
@@ -50,7 +50,5 @@ namespace BankA.Services
         {
             Balance.Money += value.Money;
         }
-
-       
     }
 }
