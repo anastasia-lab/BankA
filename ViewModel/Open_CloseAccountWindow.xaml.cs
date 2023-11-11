@@ -69,57 +69,56 @@ namespace BankA.ViewModel
         /// Открытие лицевого счёта для нового клиента
         /// </summary>
         private void OpenAccountForNewClient()
-        { 
-            string Surname = textBoxSurnameAccount.Text;
-            string FirstName = textBoxFirstNameAccount.Text;
-            string LastName = textBoxLastNameAccount.Text;
-            string PasportData = textBoxPasportAccount.Text;
-            string AccountStatus = "Открыт";
-            bool IsOpen = true;
-            long ValueBalance = 0;
-            string Currency = TextBoxCurrency.Text;
-            string AccountType = ComboBoxAccountType.Text; //выбранное значение в ComboBox
+        {
+            //string FirstName = textBoxFirstNameAccount.Text;
+            //string LastName = textBoxLastNameAccount.Text;
+            //string PasportData = textBoxPasportAccount.Text;
+            //string AccountStatus = "Открыт";
+            //bool IsOpen = true;
+            //long ValueBalance = 0;
+            //string Currency = TextBoxCurrency.Text;
+            //string AccountType = ComboBoxAccountType.Text; //выбранное значение в ComboBox
 
-            Client NewClient = new(Surname,FirstName,LastName,PasportData,AccountType,
-                                   IsOpen,AccountStatus, NewRandomAccountNumber(ClientsList), ValueBalance,Currency);
+            //Client NewClient = new(Surname,FirstName,LastName,PasportData,AccountType,
+            //                       IsOpen,AccountStatus, NewRandomAccountNumber(ClientsList), ValueBalance,Currency);
 
-            ClientsList.Add(NewClient);
+            //ClientsList.Add(NewClient);
 
-            try
-            {
-                BankInfo.AddNewClient(ClientsList, NewClient);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            //try
+            //{
+            //    BankInfo.AddNewClient(ClientsList, NewClient);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //}
         }
 
         /// <summary>
         /// Генерация номера счёта клиента из двух частей
         /// </summary>
         /// <returns></returns>
-        private ObservableCollection<Client> NewRandomAccountNumber(ObservableCollection<Client> clients)
-        {
-            Random random = new();
-            ObservableCollection<Client> NewAccountNumber = new();
+        //private ObservableCollection<Client> NewRandomAccountNumber(ObservableCollection<Client> clients)
+        //{
+        //    Random random = new();
+        //    ObservableCollection<Client> NewAccountNumber = new();
 
-            ////первая часть номера счёта клиента
-            //string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
+        //    ////первая часть номера счёта клиента
+        //    //string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
 
-            ////вторая часть номера счёта клиента
-            //string HalfAccountNumberTwo = random.NextInt64(1000000000, 9999999999).ToString();
+        //    ////вторая часть номера счёта клиента
+        //    //string HalfAccountNumberTwo = random.NextInt64(1000000000, 9999999999).ToString();
 
-            ////целый номер счёта клиента
-            //string WholeNumber = HalfAccountNumberOne+HalfAccountNumberTwo;
+        //    ////целый номер счёта клиента
+        //    //string WholeNumber = HalfAccountNumberOne+HalfAccountNumberTwo;
 
-            int accountNumber = (int)Math.Pow(10, 19);
-            accountNumber = random.Next(accountNumber);
+        //    int accountNumber = (int)Math.Pow(10, 19);
+        //    accountNumber = random.Next(accountNumber);
 
-            BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
+        //    BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
 
-            return NewAccountNumber;
-        }
+        //    return NewAccountNumber;
+        //}
 
         /// <summary>
         /// Кнопка "Открыть счёт"

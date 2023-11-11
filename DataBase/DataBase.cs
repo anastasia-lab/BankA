@@ -37,15 +37,13 @@ namespace BankA.DataBases
                             clients[i].FirstName = client.FirstName;
                             clients[i].LastName = client.LastName;
                             clients[i].PasportData = client.PasportData;
+                            clients[i].AccountType = client.AccountType;
+                            clients[i].IsOpen = client.IsOpen;
+                            clients[i].AccountStatus = client.AccountStatus;
+                            clients[i].AccountsNumber = client.AccountsNumber;
+                            clients[i].ValueBalance = client.ValueBalance;
+                            clients[i].Currency = client.Currency;
 
-                            
-                                clients[i].AccountType = client.AccountType;
-                                clients[i].IsOpen = client.IsOpen;
-                                clients[i].AccountStatus = client.AccountStatus;
-                                clients[i].AccountsNumber = client.AccountsNumber;
-                                clients[i].ValueBalance = client.ValueBalance;
-                                clients[i].Currency = client.Currency;
-                            
 
                             clientsList.Add(clients[i]);
                         }

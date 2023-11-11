@@ -8,7 +8,7 @@
         Title="Главное окно" Height="507" Width="1058" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        
+
         <!--Стиль для Button-->
         <Style x:Key="BackgroundButton" TargetType="Button">
             <Setter Property="Width" Value="77"/>
@@ -185,7 +185,7 @@
                                   IsEnabled="False"/>
                     </Grid>
                 </TabItem>
-                
+
                 <!--Блок "Счёт"-->
                 <TabItem Header="Счета" 
                          Margin="12,-2,-65,0"
@@ -194,6 +194,14 @@
                     <Grid Background="#FFE5E5E5" 
                           Height="342" 
                           Margin="0,0,1,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="419*"/>
+                            <ColumnDefinition Width="234*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="137*"/>
+                            <RowDefinition Height="34*"/>
+                        </Grid.RowDefinitions>
 
                         <Label x:Name="labelSurnameAccount" 
                                Content="Фамилия" 
@@ -201,16 +209,14 @@
                                Margin="10,24,0,0" 
                                VerticalAlignment="Top" 
                                Height="26"
-                               Style="{StaticResource TextFont}" 
-                               Grid.ColumnSpan="2"/>
+                               Style="{StaticResource TextFont}"/>
 
                         <TextBox x:Name="textBoxSurnameAccount" 
                                  HorizontalAlignment="Left" 
                                  Margin="10,46,0,0" 
                                  TextWrapping="Wrap" 
                                  VerticalAlignment="Top" 
-                                 Style="{StaticResource TextBoxStyle}" 
-                                 Grid.ColumnSpan="2"
+                                 Style="{StaticResource TextBoxStyle}"
                                  Text="{Binding ElementName=DataGridListPerson, Path=SelectedItem.Surname}"/>
 
                         <Label x:Name="labelFirstNameAccount" 
@@ -218,16 +224,14 @@
                                HorizontalAlignment="Left" 
                                Margin="10,70,0,0" 
                                VerticalAlignment="Top"
-                               Style="{StaticResource TextFont}" 
-                               Grid.ColumnSpan="2"/>
+                               Style="{StaticResource TextFont}"/>
 
                         <TextBox x:Name="textBoxFirstNameAccount" 
                                  HorizontalAlignment="Left" 
                                  Margin="10,90,0,0" 
                                  TextWrapping="Wrap" 
                                  VerticalAlignment="Top" 
-                                 Style="{StaticResource TextBoxStyle}" 
-                                 Grid.ColumnSpan="2"
+                                 Style="{StaticResource TextBoxStyle}"
                                  Text="{Binding ElementName=DataGridListPerson, Path=SelectedItem.FirstName}"/>
 
                         <Label x:Name="labelLastNameAccount" 
@@ -235,16 +239,14 @@
                                HorizontalAlignment="Left" 
                                Margin="10,115,0,0" 
                                VerticalAlignment="Top"
-                               Style="{StaticResource TextFont}" 
-                               Grid.ColumnSpan="2"/>
+                               Style="{StaticResource TextFont}"/>
 
                         <TextBox x:Name="textBoxLastNameAccount" 
                                  HorizontalAlignment="Left" 
                                  Margin="10,135,0,0" 
                                  TextWrapping="Wrap" 
                                  VerticalAlignment="Top" 
-                                 Style="{StaticResource TextBoxStyle}" 
-                                 Grid.ColumnSpan="2"
+                                 Style="{StaticResource TextBoxStyle}"
                                  Text="{Binding ElementName=DataGridListPerson, Path=SelectedItem.LastName}"/>
 
                         <Label x:Name="labelPasportAccount" 
@@ -252,16 +254,14 @@
                                HorizontalAlignment="Left" 
                                Margin="10,160,0,0" 
                                VerticalAlignment="Top"
-                               Style="{StaticResource TextFont}" 
-                               Grid.ColumnSpan="2"/>
+                               Style="{StaticResource TextFont}"/>
 
                         <TextBox x:Name="textBoxPasportAccount" 
                                  HorizontalAlignment="Left" 
-                                 Margin="10,48,0,0" 
+                                 Margin="10,182,0,0" 
                                  TextWrapping="Wrap" 
-                                 VerticalAlignment="Center" 
-                                 Style="{StaticResource TextBoxStyle}" 
-                                 Grid.ColumnSpan="2"
+                                 VerticalAlignment="Top" 
+                                 Style="{StaticResource TextBoxStyle}"
                                  Text="{Binding ElementName=DataGridListPerson, Path=SelectedItem.PasportData}"/>
 
                         <Label x:Name="labelAccounts" 
@@ -270,27 +270,33 @@
                                Margin="172,19,0,0" 
                                VerticalAlignment="Top"
                                Style="{StaticResource TextFont}" 
-                               Grid.Column="1" 
                                Width="114"/>
 
-                        <ListView x:Name="ListViewAccounts"
-                                  Margin="172,46,10,127"
-                                  Style="{StaticResource TextFont}">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Номер счёта" DisplayMemberBinding="{Binding AccountsNumber}" Width="153"/>
-                                    <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding AccountType}" Width="110"/>
-                                    <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding AccountStatus}" Width="85"/>
-                                    <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding ValueBalance}" Width="80"/>
-                                    <GridViewColumn Header="Валюта" DisplayMemberBinding="{Binding Currency}" Width="80"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <DataGrid Margin="172,50,23,80" 
+                                  Grid.ColumnSpan="2" 
+                                  x:Name="DataGridListAccount" 
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Номер счёта">
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox x:Name="ComboBoxAccounts"
+                                                      Height="20" 
+                                                      ItemsSource="{Binding SelectedData.AccountsNumber, Mode=OneWay}"
+                                                      Loaded="ComboBoxAccounts_Loaded"
+                                                      FontSize="12">
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Тип" x:Name="TypeOfAccount"/>
+                                <DataGridTextColumn Header="Статус" x:Name="StatusOfAccount"/>
+                                <DataGridTextColumn Header="Баланс" x:Name="BalanceOfAccount"/>
+                                <DataGridTextColumn Header="Валюта" x:Name="CurrencyOfAccount"/>
+ 
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                         <Button x:Name="buttonAddNewClientAccount" 
                                 Content="Добавить клиента" 
@@ -299,18 +305,16 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2"/>
+                                Style="{StaticResource BackgroundButton}"/>
 
                         <Button x:Name="buttonSaveChangesAccount" 
                                 Content="Сохранить изменения" 
                                 HorizontalAlignment="Left" 
-                                Margin="10,281,0,0" 
+                                Margin="10,7,0,0" 
                                 VerticalAlignment="Top" 
                                 Width="124"
                                 Height="26"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2"/>
+                                Style="{StaticResource BackgroundButton}" Grid.Row="1"/>
 
                         <Button x:Name="ButtonOpenNewAccount" 
                                 Content="Открыть счёт" 
@@ -319,18 +323,16 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2" Click="ButtonOpenNewAccount_Click"/>
+                                Style="{StaticResource BackgroundButton}" Click="ButtonOpenNewAccount_Click"/>
 
                         <Button x:Name="buttonCloseAccount" 
                                 Content="Закрыть счёт" 
                                 HorizontalAlignment="Left" 
-                                Margin="187,281,0,0" 
+                                Margin="187,7,0,0" 
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2" Click="buttonCloseAccount_Click"/>
+                                Style="{StaticResource BackgroundButton}" Click="buttonCloseAccount_Click" Grid.Row="1"/>
 
                         <Button x:Name="buttonTransfer" 
                                 Content="Перевести" 
@@ -339,18 +341,16 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2"/>
+                                Style="{StaticResource BackgroundButton}" Grid.ColumnSpan="2"/>
 
                         <Button x:Name="buttonReplenish" 
                                 Content="Пополнить баланс" 
                                 HorizontalAlignment="Left" 
-                                Margin="350,281,0,0" 
+                                Margin="350,7,0,0" 
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" 
-                                Grid.ColumnSpan="2"/>
+                                Style="{StaticResource BackgroundButton}" Grid.Row="1" Grid.ColumnSpan="2"/>
                     </Grid>
                 </TabItem>
             </TabControl>

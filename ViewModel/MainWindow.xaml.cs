@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static BankA.Services.Interfaces;
 
 namespace BankA.ViewModel
 {
@@ -85,7 +86,7 @@ namespace BankA.ViewModel
                 SelectedData
             };
 
-            ListViewAccounts.ItemsSource = DataSelectedClient;
+            DataGridListAccount.ItemsSource = DataSelectedClient;
         }
 
         private void ButtonOpenNewAccount_Click(object sender, RoutedEventArgs e)
@@ -120,6 +121,13 @@ namespace BankA.ViewModel
                 Open_CloseAccountWindow CloseAccount = new(ClientsList, SelectedData, RecordIndex);
                 CloseAccount.ShowDialog();
             }
+        }
+
+        private void ComboBoxAccounts_Loaded(object sender, RoutedEventArgs e)
+        {
+            ComboBox cm = (ComboBox)sender;
+            cm.ItemsSource = SelectedData.AccountsNumber.ToList();
+            
         }
     }
 }

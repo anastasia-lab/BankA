@@ -50,16 +50,5 @@ namespace BankA.Services
         {
             Balance.Money += value.Money;
         }
-
-        public void AddAccounts(Client newClient, string acc)
-        {
-            if (newClient != null)
-            {
-                //newClient.AccountsNumber = acc;
-                Accounts.Add(newClient);
-            }
-        }
-
-       
     }
 }

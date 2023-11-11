@@ -24,8 +24,8 @@ namespace BankA.Services
         public string AccountType { get; set; } = string.Empty;
         public bool IsOpen { get; set; }
 
-        private ObservableCollection<Client> accounts;
-        public ObservableCollection<Client> AccountsNumber { get => accounts; set { accounts = value; } }
+        private ObservableCollection<long> accounts = new();
+        public ObservableCollection<long> AccountsNumber { get => accounts; set { accounts = value; } }
 
         //Название валюты
         public string Currency { get; set; } = string.Empty;
@@ -53,14 +53,14 @@ namespace BankA.Services
             AccountType = _accountType;
             IsOpen = _isOpen;
             AccountStatus = _accountStatus;
-            AccountsNumber = _accountsNumber;
+            //AccountsNumber = _accountsNumber;
             ValueBalance = _accountBalance;
             Currency = _currency;
         }
 
         #endregion
 
-        public static TTargetType ParseTo<TTargetType>(decimal target)
+        public static TTargetType ParseTo<TTargetType>(string target)
         {
             return (TTargetType)System.Convert.ChangeType(target, typeof(TTargetType));
         }
