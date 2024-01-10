@@ -31,7 +31,7 @@ namespace BankA.ViewModel
         private Client SelectedData { get; set; } = new Client();
         public string SelectedButtonText { get; } = string.Empty;
         private ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
-
+        private ObservableCollection<Client> DataSelectedClient { get; set; } = new ObservableCollection<Client>();
         #endregion
 
         #region Конструктор
@@ -56,7 +56,6 @@ namespace BankA.ViewModel
             LableInfo.Content = "Количество клиентов: " + DataGridListPerson.Items.Count;
         }
 
-
         /// <summary>
         /// Выбор клиента из списка DataGrid
         /// </summary>
@@ -67,31 +66,20 @@ namespace BankA.ViewModel
             if (DataGridListPerson.SelectedItem is Client selected)
             {
                 SelectedData = selected;
-                ShowAccountSelectedClientInListView();
             }
+
+            AccountsInfoOfSelectedClient();
         }
 
         private void CheckBoxChangeData_Checked(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        /// <summary>
-        /// Вывод лицевых счётов выбранного клиента в ListView
-        /// </summary>
-        private void ShowAccountSelectedClientInListView()
-        {
-            ObservableCollection<Client> DataSelectedClient = new()
-            {
-                SelectedData
-            };
-
-            DataGridListAccount.ItemsSource = DataSelectedClient;
-        }
 
         private void ButtonOpenNewAccount_Click(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         /// <summary>
@@ -105,15 +93,12 @@ namespace BankA.ViewModel
             OpenToCreateNewClient.ShowDialog();
         }
 
-        #endregion
-        
-
         /// <summary>
         /// Кнопка "Закрыть счёт" на вкладке "Информация"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCloseAccount_Click(object sender, RoutedEventArgs e)
+        private void ButtonCloseAccount_Click(object sender, RoutedEventArgs e)
         {
             if (ClientsList != null && SelectedData != null)
             {
@@ -123,11 +108,31 @@ namespace BankA.ViewModel
             }
         }
 
-        private void ComboBoxAccounts_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Информация о лицевых счетах выбранного клиента
+        /// </summary>
+        private void AccountsInfoOfSelectedClient()
         {
-            ComboBox cm = (ComboBox)sender;
-            cm.ItemsSource = SelectedData.AccountsNumber.ToList();
-            
+            ComboBoxAccounts.ItemsSource = SelectedData.AccountsNumber;
+            textBlockType.Text = string.Empty;
+            textBlockBalance.Text = string.Empty;
+            textBlockCurrencyOfAccount.Text= string.Empty;
+            textBlockStatusOfAccount.Text= string.Empty;
         }
+
+
+        private void ComboBoxAccounts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cmb = (ComboBox)sender;
+            if (cmb == null)
+                return;
+
+            textBlockType.Text = SelectedData.AccountType;
+            textBlockBalance.Text = SelectedData.ValueBalance.ToString();
+            textBlockCurrencyOfAccount.Text = SelectedData.Currency;
+            textBlockStatusOfAccount.Text = SelectedData.AccountStatus;
+        }
+
+        #endregion
     }
 }

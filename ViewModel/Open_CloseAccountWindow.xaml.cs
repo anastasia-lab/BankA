@@ -98,10 +98,10 @@ namespace BankA.ViewModel
         /// Генерация номера счёта клиента из двух частей
         /// </summary>
         /// <returns></returns>
-        //private ObservableCollection<Client> NewRandomAccountNumber(ObservableCollection<Client> clients)
+        //private ObservableCollection<long> NewRandomAccountNumber(ObservableCollection<Client> clients)
         //{
         //    Random random = new();
-        //    ObservableCollection<Client> NewAccountNumber = new();
+        //    ObservableCollection<long> NewAccountNumber = new();
 
         //    ////первая часть номера счёта клиента
         //    //string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
