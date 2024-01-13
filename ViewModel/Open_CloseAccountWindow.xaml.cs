@@ -23,7 +23,7 @@ namespace BankA.ViewModel
     public partial class Open_CloseAccountWindow : Window
     {
         #region Объявление переменных
-        ObservableCollection<Client> ClientsList;
+        ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
         Client DataClient = new Client();
         int RecordIndex;
 
@@ -61,7 +61,7 @@ namespace BankA.ViewModel
             textBoxLastNameAccount.Text = DataClient.LastName;
             textBoxPasportAccount.Text = DataClient.PasportData;
             ComboBoxAccountType.Text = DataClient.AccountType;
-            TextBoxCurrency.Text = DataClient.Currency;
+            ComboBoxCurrency.Text = DataClient.Currency;
             TextBoxAccountNumber.Text = DataClient.AccountsNumber.ToString();
         }
 
@@ -70,55 +70,45 @@ namespace BankA.ViewModel
         /// </summary>
         private void OpenAccountForNewClient()
         {
-            //string FirstName = textBoxFirstNameAccount.Text;
-            //string LastName = textBoxLastNameAccount.Text;
-            //string PasportData = textBoxPasportAccount.Text;
-            //string AccountStatus = "Открыт";
-            //bool IsOpen = true;
-            //long ValueBalance = 0;
-            //string Currency = TextBoxCurrency.Text;
-            //string AccountType = ComboBoxAccountType.Text; //выбранное значение в ComboBox
+            string Surname = textBoxSurnameAccount.Text;
+            string FirstName = textBoxFirstNameAccount.Text;
+            string LastName = textBoxLastNameAccount.Text;
+            string PasportData = textBoxPasportAccount.Text;
+            string AccountStatus = "Открыт";
+            bool IsOpen = true;
+            long ValueBalance = 0;
+            string Currency = ComboBoxCurrency.Text;
+            string AccountType = ComboBoxAccountType.Text; //выбранное значение в ComboBox
 
-            //Client NewClient = new(Surname,FirstName,LastName,PasportData,AccountType,
-            //                       IsOpen,AccountStatus, NewRandomAccountNumber(ClientsList), ValueBalance,Currency);
+            Client NewClient = new(Surname, FirstName, LastName, PasportData, AccountType,
+                                   IsOpen, AccountStatus, NewRandomAccountNumber(ClientsList), ValueBalance, Currency);
 
-            //ClientsList.Add(NewClient);
-
-            //try
-            //{
-            //    BankInfo.AddNewClient(ClientsList, NewClient);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
+            try
+            {
+                BankInfo.AddNewClient(ClientsList, NewClient);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         /// <summary>
         /// Генерация номера счёта клиента из двух частей
         /// </summary>
         /// <returns></returns>
-        //private ObservableCollection<long> NewRandomAccountNumber(ObservableCollection<Client> clients)
-        //{
-        //    Random random = new();
-        //    ObservableCollection<long> NewAccountNumber = new();
+        private ObservableCollection<long> NewRandomAccountNumber(ObservableCollection<Client> clients)
+        {
+            Random random = new();
+            ObservableCollection<long> NewAccountNumber = new();
 
-        //    ////первая часть номера счёта клиента
-        //    //string HalfAccountNumberOne = random.NextInt64(1000000000, 9999999999).ToString();
+            //long accountNumber = (long)Math.Pow(10, 19);
+            long accountNumber = random.NextInt64();
 
-        //    ////вторая часть номера счёта клиента
-        //    //string HalfAccountNumberTwo = random.NextInt64(1000000000, 9999999999).ToString();
+            BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
 
-        //    ////целый номер счёта клиента
-        //    //string WholeNumber = HalfAccountNumberOne+HalfAccountNumberTwo;
-
-        //    int accountNumber = (int)Math.Pow(10, 19);
-        //    accountNumber = random.Next(accountNumber);
-
-        //    BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
-
-        //    return NewAccountNumber;
-        //}
+            return NewAccountNumber;
+        }
 
         /// <summary>
         /// Кнопка "Открыть счёт"

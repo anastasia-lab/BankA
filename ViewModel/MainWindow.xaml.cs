@@ -25,13 +25,12 @@ namespace BankA.ViewModel
     {
         #region Объявление переменных
 
-        //readonly BankInfo bank;
-
         //Данные выбранного клиента
         private Client SelectedData { get; set; } = new Client();
         public string SelectedButtonText { get; } = string.Empty;
         private ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
-        private ObservableCollection<Client> DataSelectedClient { get; set; } = new ObservableCollection<Client>();
+        //private ObservableCollection<Client> DataSelectedClient { get; set; } = new ObservableCollection<Client>();
+        
         #endregion
 
         #region Конструктор
@@ -39,7 +38,6 @@ namespace BankA.ViewModel
         {
             InitializeComponent();
 
-            //bank = new BankInfo();
             LoadDataInDataView();
         }
 
@@ -53,7 +51,7 @@ namespace BankA.ViewModel
         private void LoadDataInDataView()
         {
             DataGridListPerson.ItemsSource = BankInfo.GetListClients(ClientsList);
-            LableInfo.Content = "Количество клиентов: " + DataGridListPerson.Items.Count;
+            LableInfo.Content = "Количество клиентов: " + ClientsList.Count;
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace BankA.ViewModel
         }
 
         /// <summary>
-        /// Кнопка "Добавить клиента" на вкладке "Информация"
+        /// Кнопка "Добавить клиента"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -94,7 +92,7 @@ namespace BankA.ViewModel
         }
 
         /// <summary>
-        /// Кнопка "Закрыть счёт" на вкладке "Информация"
+        /// Кнопка "Закрыть счёт"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -120,7 +118,11 @@ namespace BankA.ViewModel
             textBlockStatusOfAccount.Text= string.Empty;
         }
 
-
+        /// <summary>
+        /// Вывод информации выбранного счета клиента
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxAccounts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmb = (ComboBox)sender;

@@ -44,7 +44,7 @@ namespace BankA.Services
         }
 
         public Client(string _surName, string _firstName, string _lastName, string _pasport, string _accountType, bool _isOpen,
-            string _accountStatus, ObservableCollection<Client> _accountsNumber, long _accountBalance, string _currency)
+            string _accountStatus, ObservableCollection<long> _accountsNumber, long _accountBalance, string _currency)
         {
             Surname = _surName;
             FirstName = _firstName;
@@ -53,7 +53,7 @@ namespace BankA.Services
             AccountType = _accountType;
             IsOpen = _isOpen;
             AccountStatus = _accountStatus;
-            //AccountsNumber = _accountsNumber;
+            AccountsNumber = _accountsNumber;
             ValueBalance = _accountBalance;
             Currency = _currency;
         }

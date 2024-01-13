@@ -56,7 +56,7 @@ namespace BankA.DataBases
         }
 
         /// <summary>
-        /// Сохранение данных в xml-файл
+        /// Сохранение списка клиентов в xml-файл
         /// </summary>
         /// <param name="clientsList"> Список клиентов </param>
         public static void SaveXmlFile(ObservableCollection<Client> clientsList)

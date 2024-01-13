@@ -119,12 +119,15 @@
                VerticalAlignment="Top"
                Style="{StaticResource TextFont}"/>
 
-        <TextBox x:Name="TextBoxCurrency" 
-                 HorizontalAlignment="Left" 
-                 Margin="20,330,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Style="{StaticResource TextBoxStyle}"/>
+        <ComboBox x:Name="ComboBoxCurrency" 
+                  HorizontalAlignment="Left" 
+                  Margin="20,331,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="120" Height="22">
+            <ComboBoxItem Content="РУБ"/>
+            <ComboBoxItem Content="USA"/>
+            <ComboBoxItem Content="EUR"/>
+        </ComboBox>
 
         <Label x:Name="LabelAccountNumber" 
                Content="Номер счёта" 
@@ -139,7 +142,7 @@
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource TextBoxStyle}"/>
-        
+
         <Button x:Name="ButtonOpenAccount" 
                 Grid.Column="1" 
                 Content="Открыть счёт" 
