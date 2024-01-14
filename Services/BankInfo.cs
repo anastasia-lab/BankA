@@ -45,14 +45,14 @@ namespace BankA.Services
         /// </summary>
         /// <param name="client"> Новый клиент </param>
         /// <param name="ClientsList"> Список клиентов </param>
-        public static void AddNewClient(ObservableCollection<Client> ClientsList,Client client)
+        public static void AddNewClient(ObservableCollection<Client> ClientsList, Client client)
         {
-            //ClientsList.Add(client);
+            ClientsList.Add(client);
             DataBase.SaveXmlFile(ClientsList);
         }
 
         /// <summary>
-        /// Проверка нового счёта на совпадение с существующими
+        /// Проверка нового л/с на совпадение с существующими у клиентов
         /// </summary>
         /// <param name="clientAccountNumber"> Новый счёт клиента </param>
         /// <param name="ClientsList"> Список клиентов </param>
@@ -60,7 +60,6 @@ namespace BankA.Services
         /// <exception cref="ArgumentException"></exception>
         public static decimal GetCheckClientAccountNumber(ObservableCollection<Client> ClientsList, decimal clientAccountNumber)
         {
-            GetListClients(ClientsList);
 
             for (int i = 0; i < ClientsList.Count; i++)
             {

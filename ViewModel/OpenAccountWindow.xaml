@@ -1,4 +1,4 @@
-﻿<Window x:Class="BankA.ViewModel.Open_CloseAccountWindow"
+﻿<Window x:Class="BankA.ViewModel.OpenAccountWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,7 +22,7 @@
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="ItemsControl.FontFamily" Value="Times New Roman"/>
-            <Setter Property="ItemsControl.FontSize" Value="14"/>
+            <Setter Property="ItemsControl.FontSize" Value="12"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="Width" Value="135"/>
         </Style>
@@ -59,7 +59,9 @@
                HorizontalAlignment="Left" 
                Margin="20,70,0,0" 
                VerticalAlignment="Top"
-               Style= "{StaticResource TextFont}" Height="26" Width="35"/>
+               Style= "{StaticResource TextFont}" 
+               Height="26" 
+               Width="35"/>
 
         <TextBox x:Name="textBoxFirstNameAccount" 
                  HorizontalAlignment="Left" 
@@ -119,27 +121,16 @@
                VerticalAlignment="Top"
                Style="{StaticResource TextFont}"/>
 
-        <TextBox x:Name="TextBoxCurrency" 
-                 HorizontalAlignment="Left" 
-                 Margin="20,330,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Style="{StaticResource TextBoxStyle}"/>
+        <ComboBox x:Name="ComboBoxCurrency" 
+                  HorizontalAlignment="Left" 
+                  Margin="20,331,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="120" Height="22">
+            <ComboBoxItem Content="РУБ"/>
+            <ComboBoxItem Content="USA"/>
+            <ComboBoxItem Content="EUR"/>
+        </ComboBox>
 
-        <Label x:Name="LabelAccountNumber" 
-               Content="Номер счёта" 
-               HorizontalAlignment="Left" 
-               Margin="20,360,0,0" 
-               VerticalAlignment="Top"
-               Style="{StaticResource TextFont}"/>
-
-        <TextBox x:Name="TextBoxAccountNumber" 
-                 HorizontalAlignment="Left" 
-                 Margin="20,390,0,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Style="{StaticResource TextBoxStyle}"/>
-        
         <Button x:Name="ButtonOpenAccount" 
                 Grid.Column="1" 
                 Content="Открыть счёт" 
@@ -148,14 +139,12 @@
                 VerticalAlignment="Top"
                 Style="{StaticResource BackgroundButton}" 
                 Click="ButtonOpenAccount_Click"/>
-
-        <Button x:Name="ButtonCloseAccount" 
-                Grid.Column="1" 
-                Content="Закрыть счёт" 
-                HorizontalAlignment="Center" 
-                Margin="0,123,0,0" 
-                VerticalAlignment="Top"
-                Style="{StaticResource BackgroundButton}" Click="ButtonCloseAccount_Click"/>
+        <CheckBox x:Name="checkBoxNewClient" 
+                  Grid.Column="1" 
+                  Content="Новый клиент" 
+                  HorizontalAlignment="Left" 
+                  Margin="80,112,0,0" 
+                  VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
