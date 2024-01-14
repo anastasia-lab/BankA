@@ -24,7 +24,7 @@ namespace BankA.Services
         public string AccountType { get; set; } = string.Empty;
         public bool IsOpen { get; set; }
 
-        private ObservableCollection<long> accounts = new();
+        public ObservableCollection<long> accounts = new();
         public ObservableCollection<long> AccountsNumber { get => accounts; set { accounts = value; } }
 
         //Название валюты

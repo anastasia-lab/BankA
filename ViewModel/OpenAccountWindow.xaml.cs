@@ -20,25 +20,39 @@ namespace BankA.ViewModel
     /// <summary>
     /// Логика взаимодействия для Open_CloseAccountWindow.xaml
     /// </summary>
-    public partial class Open_CloseAccountWindow : Window
+    public partial class OpenAccountWindow : Window
     {
         #region Объявление переменных
-        ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
-        Client DataClient = new Client();
-        int RecordIndex;
+        
+        public ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
+        public Client DataClient { get; set; } = new Client();
+        readonly int RecordIndex;
 
         #endregion
 
         #region Конструкторы
-        public Open_CloseAccountWindow(ObservableCollection<Client> clients)
+
+        /// <summary>
+        /// Конструктор для добавления нового клиента
+        /// </summary>
+        /// <param name="clients">Список всех клиентов</param>
+        public OpenAccountWindow(ObservableCollection<Client> clients)
         {
             InitializeComponent();
 
             this.ClientsList = clients;
         }
 
-        public Open_CloseAccountWindow(ObservableCollection<Client> clients, Client client, int recordIndex)
+        /// <summary>
+        /// Конструкто для отрытия лицевого счёта существующего клиента
+        /// </summary>
+        /// <param name="clients">Список клиентов</param>
+        /// <param name="client">Данные выбранного клиента из списка</param>
+        /// <param name="recordIndex">Индекс выбранного клиента из списка</param>
+        public OpenAccountWindow(ObservableCollection<Client> clients, Client client, int recordIndex)
         {
+            InitializeComponent();
+
             this.ClientsList = clients;
             this.DataClient = client;
             this.RecordIndex = recordIndex;
@@ -56,13 +70,10 @@ namespace BankA.ViewModel
         /// </summary>
         private void GetShowSelectData()
         {
-            textBoxSurnameAccount.Text = DataClient.Surname;
-            textBoxFirstNameAccount.Text = DataClient.FirstName;
-            textBoxLastNameAccount.Text = DataClient.LastName;
-            textBoxPasportAccount.Text = DataClient.PasportData;
-            ComboBoxAccountType.Text = DataClient.AccountType;
-            ComboBoxCurrency.Text = DataClient.Currency;
-            TextBoxAccountNumber.Text = DataClient.AccountsNumber.ToString();
+                textBoxSurnameAccount.Text = DataClient.Surname;
+                textBoxFirstNameAccount.Text = DataClient.FirstName;
+                textBoxLastNameAccount.Text = DataClient.LastName;
+                textBoxPasportAccount.Text = DataClient.PasportData;           
         }
 
         /// <summary>
@@ -90,22 +101,28 @@ namespace BankA.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
         }
 
         /// <summary>
         /// Генерация номера счёта клиента из двух частей
         /// </summary>
+        /// <param name="clients">Список клиентов</param>
         /// <returns></returns>
-        private ObservableCollection<long> NewRandomAccountNumber(ObservableCollection<Client> clients)
+        private static ObservableCollection<long> NewRandomAccountNumber(ObservableCollection<Client> clients)
         {
             Random random = new();
             ObservableCollection<long> NewAccountNumber = new();
 
-            //long accountNumber = (long)Math.Pow(10, 19);
-            long accountNumber = random.NextInt64();
+            try
+            {
+                //Сгенерированый рандомный номер лицевого счёта
+                long accountNumber = random.NextInt64();
 
-            BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
+                BankInfo.GetCheckClientAccountNumber(clients, accountNumber);
+            }
+            catch { }
 
             return NewAccountNumber;
         }
@@ -117,53 +134,37 @@ namespace BankA.ViewModel
         /// <param name="e"></param>
         private void ButtonOpenAccount_Click(object sender, RoutedEventArgs e)
         {
-            OpenAccountForNewClient();
+            if (checkBoxNewClient.IsChecked == true)
+                OpenAccountForNewClient();
+            else OpenNewAccountNumberToExistingClient();
         }
 
         /// <summary>
         /// Открытие нового счёта существуещему клиенту
         /// </summary>
-        private void OpenNewAccountNumderToExistingClient()
+        private void OpenNewAccountNumberToExistingClient()
         {
             if (ClientsList != null && DataClient != null)
             {
-                //decimal NewAccountNumber = NewRandomAccountNumber(ClientsList);
-            }
-        }
-
-        /// <summary>
-        /// Закрытие счёта
-        /// </summary>
-        /// <exception cref="ArgumentException">Обработчик ошибки при закрытии</exception>
-        private void CloseAccountNumber()
-        {
-            if (ClientsList != null && DataClient != null)
-            {
-                if (ClientsList[RecordIndex].AccountsNumber.ToString() == TextBoxAccountNumber.Text)
+                for (int i = 0; i < ClientsList.Count; i++)
                 {
-                    if (ClientsList[RecordIndex].IsOpen == true)
+                    if (ClientsList[i].AccountsNumber == ClientsList[RecordIndex].AccountsNumber)
                     {
-                        ClientsList[RecordIndex].IsOpen = false;
-                        if (ClientsList[RecordIndex].ValueBalance != 0)
-                            throw new ArgumentException("Для закрытия счёта необходимо иметь нулевой баланс");
+                        DataClient.AccountType = ComboBoxAccountType.Text;
+                        //ClientsList[i].IsOpen = true;
+                        //ClientsList[i].AccountStatus = "Открыт";
+                        //ClientsList[i].AccountsNumber = NewRandomAccountNumber(ClientsList);
+                        //ClientsList[i].ValueBalance = 0;
+                        //ClientsList[i].Currency = ComboBoxCurrency.Text;
 
-                        ClientsList.RemoveAt(RecordIndex);
+                        //ClientsList.RemoveAt(RecordIndex);
                         ClientsList.Insert(RecordIndex, DataClient);
+                        break;
+                        //BankInfo.SaveEditData(ClientsList);
 
-                        BankInfo.SaveEditData(ClientsList);
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Кнопка "Закрыть счёт"
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonCloseAccount_Click(object sender, RoutedEventArgs e)
-        {
-            CloseAccountNumber();
         }
 
         #endregion

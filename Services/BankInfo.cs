@@ -52,7 +52,7 @@ namespace BankA.Services
         }
 
         /// <summary>
-        /// Проверка нового лицевого счёта на совпадение с существующими
+        /// Проверка нового л/с на совпадение с существующими у клиентов
         /// </summary>
         /// <param name="clientAccountNumber"> Новый счёт клиента </param>
         /// <param name="ClientsList"> Список клиентов </param>
