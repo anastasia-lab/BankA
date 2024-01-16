@@ -146,24 +146,14 @@ namespace BankA.ViewModel
         {
             if (ClientsList != null && DataClient != null)
             {
-                for (int i = 0; i < ClientsList.Count; i++)
-                {
-                    if (ClientsList[i].AccountsNumber == ClientsList[RecordIndex].AccountsNumber)
-                    {
-                        DataClient.AccountType = ComboBoxAccountType.Text;
-                        //ClientsList[i].IsOpen = true;
-                        //ClientsList[i].AccountStatus = "Открыт";
-                        //ClientsList[i].AccountsNumber = NewRandomAccountNumber(ClientsList);
-                        //ClientsList[i].ValueBalance = 0;
-                        //ClientsList[i].Currency = ComboBoxCurrency.Text;
+                Client client = new Client();
+                ObservableCollection<Client> clients = new ObservableCollection<Client>();
+                var found = ClientsList.FirstOrDefault(x => x.PasportData == DataClient.PasportData);
+                int i = ClientsList.IndexOf(found);
 
-                        //ClientsList.RemoveAt(RecordIndex);
-                        ClientsList.Insert(RecordIndex, DataClient);
-                        break;
-                        //BankInfo.SaveEditData(ClientsList);
-
-                    }
-                }
+                client.AccountsNumber = NewRandomAccountNumber(ClientsList);
+                
+                ClientsList.Insert(i, client);
             }
         }
 
