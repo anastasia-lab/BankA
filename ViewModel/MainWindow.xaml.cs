@@ -75,7 +75,11 @@ namespace BankA.ViewModel
 
         }
 
-
+        /// <summary>
+        /// Кнопка "Открыть счёт"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonOpenNewAccount_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -84,8 +88,10 @@ namespace BankA.ViewModel
                 {   
                     //Индекс выбранного клиента в общем списке
                     int RecordIndex = ClientsList.IndexOf(SelectedData);
+
                     OpenAccountWindow OpenNewAccount = new(ClientsList, SelectedData, RecordIndex);
                     OpenNewAccount.ShowDialog();
+                    this.Close();
                 }
             }
             catch { }
@@ -109,64 +115,64 @@ namespace BankA.ViewModel
         /// <param name="e"></param>
         private void ButtonCloseAccount_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (ClientsList != null && SelectedData != null)
-                {
-                    if (SelectedData.ValueBalance != 0)
-                    {
-                        MessageBox.Show("Для закрытия счёта необходимо иметь нулевой баланс",
-                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                    if (SelectedData.IsOpen == false)
-                    {
-                        MessageBox.Show("Счёт уже закрыт",
-                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                    if (ComboBoxAccounts.Text == "")
-                    {
-                        MessageBox.Show("Выберите лицевой счёт",
-                                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                    else
-                    {
-                        //Индекс выбранного клиента в общем списке
-                        int RecordIndex = ClientsList.IndexOf(SelectedData);
+            //try
+            //{
+            //    if (ClientsList != null && SelectedData != null)
+            //    {
+            //        if (SelectedData.ValueBalance != 0)
+            //        {
+            //            MessageBox.Show("Для закрытия счёта необходимо иметь нулевой баланс",
+            //                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //            return;
+            //        }
+            //        if (SelectedData.IsOpen == false)
+            //        {
+            //            MessageBox.Show("Счёт уже закрыт",
+            //                "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //            return;
+            //        }
+            //        if (ComboBoxAccounts.Text == "")
+            //        {
+            //            MessageBox.Show("Выберите лицевой счёт",
+            //                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            //Индекс выбранного клиента в общем списке
+            //            int RecordIndex = ClientsList.IndexOf(SelectedData);
 
-                        try
-                        {
-                            if (ClientsList != null && SelectedData != null)
-                            {
-                                for (int i = 0; i < ClientsList.Count; i++)
-                                {
-                                    if (ClientsList[i].AccountsNumber == ClientsList[RecordIndex].AccountsNumber)
-                                    {
-                                        ClientsList[RecordIndex].IsOpen = false;
-                                        ClientsList[RecordIndex].AccountStatus = "Закрыт";
+            //            try
+            //            {
+            //                if (ClientsList != null && SelectedData != null)
+            //                {
+            //                    for (int i = 0; i < ClientsList.Count; i++)
+            //                    {
+            //                        if (ClientsList[i].AccountsNumber == ClientsList[RecordIndex].AccountsNumber)
+            //                        {
+            //                            ClientsList[RecordIndex].IsOpen = false;
+            //                            ClientsList[RecordIndex].AccountStatus = "Закрыт";
 
-                                        ClientsList.RemoveAt(RecordIndex);
-                                        ClientsList.Insert(RecordIndex, SelectedData);
+            //                            ClientsList.RemoveAt(RecordIndex);
+            //                            ClientsList.Insert(RecordIndex, SelectedData);
 
-                                        BankInfo.SaveEditData(ClientsList);
-                                    }
-                                }
+            //                            BankInfo.SaveEditData(ClientsList);
+            //                        }
+            //                    }
 
-                                MessageBox.Show("Счёт закрыт", "Информация", MessageBoxButton.OK, 
-                                    MessageBoxImage.Information);
-                                return;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                    }
-                }
-            }
-            catch { }
+            //                    MessageBox.Show("Счёт закрыт", "Информация", MessageBoxButton.OK, 
+            //                        MessageBoxImage.Information);
+            //                    return;
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch { }
         }
 
         /// <summary>
@@ -174,11 +180,14 @@ namespace BankA.ViewModel
         /// </summary>
         private void AccountsInfoOfSelectedClient()
         {
-            ComboBoxAccounts.ItemsSource = SelectedData.AccountsNumber;
+            List<long> accounts = new List<long>
+            {
+                SelectedData.Account.AccountNumber
+            };
+            ComboBoxAccounts.ItemsSource = accounts;
             textBlockType.Text = string.Empty;
             textBlockBalance.Text = string.Empty;
             textBlockCurrencyOfAccount.Text = string.Empty;
-            textBlockStatusOfAccount.Text = string.Empty;
         }
 
         /// <summary>
@@ -192,10 +201,9 @@ namespace BankA.ViewModel
             if (cmb == null)
                 return;
 
-            textBlockType.Text = SelectedData.AccountType;
-            textBlockBalance.Text = SelectedData.ValueBalance.ToString();
-            textBlockCurrencyOfAccount.Text = SelectedData.Currency;
-            textBlockStatusOfAccount.Text = SelectedData.AccountStatus;
+            textBlockType.Text = SelectedData.Account.Type.ToString();
+            textBlockBalance.Text = SelectedData.Account.Balance.Money.ToString();
+            textBlockCurrencyOfAccount.Text = SelectedData.Account.CurrencyType.ToString();
         }
 
         #endregion
