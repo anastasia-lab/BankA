@@ -10,11 +10,21 @@ using static BankA.Services.Interfaces;
 namespace BankA.Services
 {
     public enum AccountType { Current, Savings }; // тип счёта: текущий, сбережения
+    public enum CurrencyType { RUB, USA, EUR}; // тип валюты
     public class Account<T> : IAccount<T>
         where T : BankInfo, new()
     {
-        private AccountType AccountType;
+        #region Объявление переменных
 
+        private AccountType accountType;
+        private CurrencyType currencyType;
+        private long accountNumber;
+        private bool isOpen;
+        private T balance;
+
+        #endregion
+
+        #region Конструктор
         public Account()
         {
             Balance = new();
@@ -27,12 +37,21 @@ namespace BankA.Services
             IsOpen = true;
         }
 
-        public bool IsOpen { get; set; }
+        #endregion
 
-        public ObservableCollection<Client> Accounts { get; set; }
-        public T Balance { get; }
+        #region Свойства
 
-        public AccountType Type { get { return AccountType; } set { AccountType = value; } }
+        public bool IsOpen { get { return isOpen; } set { isOpen = value; } }
+
+        public long AccountNumber { get { return accountNumber; } set { accountNumber = value; } }
+        public T Balance { get { return balance; } set { balance = value; } }
+
+        public AccountType Type { get { return accountType; } set { accountType = value; } }
+        public CurrencyType CurrencyType { get {  return currencyType; } set { currencyType = value; } }
+
+        #endregion
+
+        #region Методы
 
         public T GetValue(long amount)
         {
@@ -50,5 +69,11 @@ namespace BankA.Services
         {
             Balance.Money += value.Money;
         }
+
+        public int Count
+        { get; }
+
+        #endregion
+
     }
 }

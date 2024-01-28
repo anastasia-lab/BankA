@@ -40,16 +40,6 @@ namespace BankA.Services
             return ClientsList;
         }
 
-        /// <summary>
-        /// Добавление в коллекцию нового клиента
-        /// </summary>
-        /// <param name="client"> Новый клиент </param>
-        /// <param name="ClientsList"> Список клиентов </param>
-        public static void AddNewClient(ObservableCollection<Client> ClientsList, Client client)
-        {
-            ClientsList.Add(client);
-            DataBase.SaveXmlFile(ClientsList);
-        }
 
         /// <summary>
         /// Проверка нового л/с на совпадение с существующими у клиентов
@@ -58,12 +48,12 @@ namespace BankA.Services
         /// <param name="ClientsList"> Список клиентов </param>
         /// <returns> Возаращает номер счёта клиента </returns>
         /// <exception cref="ArgumentException"></exception>
-        public static decimal GetCheckClientAccountNumber(ObservableCollection<Client> ClientsList, decimal clientAccountNumber)
+        public static decimal GetCheckClientAccountNumber(ObservableCollection<Client> ClientsList, long clientAccountNumber)
         {
 
             for (int i = 0; i < ClientsList.Count; i++)
             {
-                if (clientAccountNumber.ToString() == ClientsList[i].AccountsNumber.ToString())
+                if (clientAccountNumber.ToString() == ClientsList[i].Account.AccountNumber.ToString())
                     throw new ArgumentException("Кажется, такой номер счёта уже есть.");
             }
 

@@ -418,25 +418,6 @@
                             Width="136" 
                             Height="21"
                             Style="{StaticResource TextFont}" />
-                        <Label x:Name="LabelStatusOfAccount" 
-                            Grid.Column="1" 
-                            Content="Статус" 
-                            HorizontalAlignment="Left" 
-                            Margin="51,177,0,0" 
-                            VerticalAlignment="Top" 
-                            Width="100"
-                            Style="{StaticResource TextFont}" 
-                            Height="27" />
-                        <TextBlock x:Name="textBlockStatusOfAccount" 
-                            Grid.Column="2" 
-                            HorizontalAlignment="Left" 
-                            Margin="10,177,0,0" 
-                            Text="/"
-                            TextWrapping="Wrap" 
-                            VerticalAlignment="Top" 
-                            Width="136" 
-                            Height="21"
-                            Style="{StaticResource TextFont}" />
                     </Grid>
                 </TabItem>
             </TabControl>
