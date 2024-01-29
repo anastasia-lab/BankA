@@ -53,8 +53,9 @@ namespace BankA.Services
 
             for (int i = 0; i < ClientsList.Count; i++)
             {
-                if (clientAccountNumber.ToString() == ClientsList[i].Account.AccountNumber.ToString())
-                    throw new ArgumentException("Кажется, такой номер счёта уже есть.");
+                for(int j = 0; j < ClientsList[i].Account.Count; j++)
+                    if (clientAccountNumber.ToString() == ClientsList[i].Account[j].AccountNumber.ToString())
+                        throw new ArgumentException("Кажется, такой номер счёта уже есть.");
             }
 
             return clientAccountNumber;

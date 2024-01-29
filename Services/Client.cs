@@ -14,19 +14,13 @@ namespace BankA.Services
 {
     public class Client
     {
-        private Account<BankInfo> accountNumber;
-
         #region Свойства
 
         public string Surname { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PasportData { get; set; } = string.Empty;
-        public Account<BankInfo> Account 
-        { 
-            get { return accountNumber; }
-            set { accountNumber = value; }
-        } 
+        public ObservableCollection<Account<BankInfo>> Account { get; set; } = new ObservableCollection<Account<BankInfo>>();
 
         #endregion
 
@@ -42,7 +36,7 @@ namespace BankA.Services
             PasportData = _pasport;
         }
 
-        public Client(string _surName, string _firstName, string _lastName, string _pasport, Account<BankInfo> account)
+        public Client(string _surName, string _firstName, string _lastName, string _pasport, ObservableCollection<Account<BankInfo>> account)
         {
             Surname = _surName;
             FirstName = _firstName;
@@ -53,14 +47,21 @@ namespace BankA.Services
 
         #endregion
 
-        //public void AddAccount(long account, string Type, string NewCurrency)
-        //{
-        //    this.AccountsNumber.Add(account);
-        //    Currency = NewCurrency;
-        //    AccountType = Type;
-        //    IsOpen = true;
-        //    AccountStatus = "Открыт";
-        //    ValueBalance = 3000;
-        //}
+        #region Метод
+
+        public void AddAccount(long account, string type, string newCurrency)
+        {
+            Account<BankInfo> addNewAccount = new();
+            addNewAccount.AccountNumber = account;
+            addNewAccount.IsOpen = true;
+            addNewAccount.Balance.Money = 0;
+
+            addNewAccount.GetTypeAccountClient(type);
+            addNewAccount.GetCurrencyTypeClient(newCurrency);
+
+            Account.Add(addNewAccount);
+        }
+
+        #endregion
     }
 }

@@ -44,7 +44,7 @@
             <RowDefinition Height="14*"/>
             <RowDefinition Height="157*"/>
         </Grid.RowDefinitions>
-        
+
         <!--Блок "Информация"-->
         <StackPanel x:Name="StackPanelInfoClient" 
                     Margin="12,6,0,0" 
@@ -316,7 +316,9 @@
                                Margin="51,32,0,0" 
                                VerticalAlignment="Top"
                                Style="{StaticResource TextFont}" 
-                               Width="104" Grid.Column="1" Height="26"/>
+                               Width="104" 
+                               Grid.Column="1" 
+                               Height="26"/>
 
                         <Button x:Name="ButtonOpenNewAccount" 
                                 Content="Открыть счёт" 
@@ -325,7 +327,10 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" Click="ButtonOpenNewAccount_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                Style="{StaticResource BackgroundButton}" 
+                                Click="ButtonOpenNewAccount_Click" 
+                                Grid.Column="1" 
+                                Grid.ColumnSpan="2"/>
 
                         <Button x:Name="ButtonCloseAccount" 
                                 Content="Закрыть счёт" 
@@ -359,7 +364,9 @@
                                   FontSize="12"
                                   SelectionChanged="ComboBoxAccounts_SelectionChanged" 
                                   Grid.Column="2" 
-                                  Margin="10,38,74,216"/>
+                                  Margin="10,38,74,216">
+                        </ComboBox>
+
                         <Label x:Name="LabelType" 
                                Grid.Column="1" 
                                Content="Тип" 
@@ -380,6 +387,7 @@
                                    Width="136" 
                                    Height="21"
                                    Style="{StaticResource TextFont}" />
+
                         <Label x:Name="LabelBalance" 
                             Grid.Column="1" 
                             Content="Баланс" 
@@ -389,6 +397,7 @@
                             Width="100"
                             Style="{StaticResource TextFont}" 
                             Height="27" />
+
                         <TextBlock x:Name="textBlockBalance" 
                             Grid.Column="2" 
                             HorizontalAlignment="Left" 
@@ -399,6 +408,7 @@
                             Width="136" 
                             Height="21"
                             Style="{StaticResource TextFont}" />
+
                         <Label x:Name="LabelCurrencyOfAccount" 
                             Grid.Column="1" 
                             Content="Валюта" 
@@ -408,6 +418,7 @@
                             Width="100"
                             Style="{StaticResource TextFont}" 
                             Height="27" />
+
                         <TextBlock x:Name="textBlockCurrencyOfAccount" 
                             Grid.Column="2" 
                             HorizontalAlignment="Left" 
@@ -417,6 +428,27 @@
                             VerticalAlignment="Top" 
                             Width="136" 
                             Height="21"
+                            Style="{StaticResource TextFont}" />
+
+                        <Label x:Name="LabelStatusOfAccount" 	
+                            Grid.Column="1" 	
+                            Content="Статус" 	
+                            HorizontalAlignment="Left" 	
+                            Margin="51,177,0,0" 	
+                            VerticalAlignment="Top" 	
+                            Width="100"	
+                            Style="{StaticResource TextFont}" 	
+                            Height="27" />
+
+                        <TextBlock x:Name="textBlockStatusOfAccount" 	
+                            Grid.Column="2" 	
+                            HorizontalAlignment="Left" 	
+                            Margin="10,177,0,0" 	
+                            Text="/"	
+                            TextWrapping="Wrap" 	
+                            VerticalAlignment="Top" 	
+                            Width="136" 	
+                            Height="21"	
                             Style="{StaticResource TextFont}" />
                     </Grid>
                 </TabItem>

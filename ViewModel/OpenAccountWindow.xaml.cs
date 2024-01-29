@@ -26,8 +26,8 @@ namespace BankA.ViewModel
         
         public ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
         public Client DataClient { get; set; } = new Client();
-        readonly int RecordIndex;
-        Account<BankInfo> AccountClient = new Account<BankInfo>();
+        readonly int RecordIndex = 0;
+        ObservableCollection<Account<BankInfo>> AccountClient = new();
 
         #endregion
 
@@ -42,6 +42,7 @@ namespace BankA.ViewModel
             InitializeComponent();
 
             this.ClientsList = clients;
+            checkBoxNewClient.IsChecked = true;
         }
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace BankA.ViewModel
             this.DataClient = client;
             this.RecordIndex = recordIndex;
             this.AccountClient = client.Account;
+            checkBoxNewClient.IsChecked = false;
 
             GetShowSelectData();
         }
@@ -72,10 +74,10 @@ namespace BankA.ViewModel
         /// </summary>
         private void GetShowSelectData()
         {
-                textBoxSurnameAccount.Text = DataClient.Surname;
-                textBoxFirstNameAccount.Text = DataClient.FirstName;
-                textBoxLastNameAccount.Text = DataClient.LastName;
-                textBoxPasportAccount.Text = DataClient.PasportData;           
+            textBoxSurnameAccount.Text = DataClient.Surname;
+            textBoxFirstNameAccount.Text = DataClient.FirstName;
+            textBoxLastNameAccount.Text = DataClient.LastName;
+            textBoxPasportAccount.Text = DataClient.PasportData;
         }
 
         /// <summary>
@@ -87,7 +89,8 @@ namespace BankA.ViewModel
         {
             if (checkBoxNewClient.IsChecked == true)
                 OpenAccountForNewClient();
-            else OpenNewAccountNumberToExistingClient();
+            if (checkBoxNewClient.IsChecked == false)
+                OpenNewAccountNumberToExistingClient();
         }
 
         /// <summary>
@@ -97,25 +100,21 @@ namespace BankA.ViewModel
         {
             try
             {
+                Account<BankInfo> newAccount = new ();
                 string Surname = textBoxSurnameAccount.Text;
                 string FirstName = textBoxFirstNameAccount.Text;
                 string LastName = textBoxLastNameAccount.Text;
                 string PasportData = textBoxPasportAccount.Text;
 
-                AccountClient.Balance.Money = 0;
-                AccountClient.IsOpen = true;
-                AccountClient.AccountNumber = NewRandomAccountNumber(ClientsList);
 
-                if (ComboBoxAccountType.Text == "Текущий")
-                    AccountClient.Type = AccountType.Current;
-                if (ComboBoxAccountType.Text == "Сберегающий")
-                    AccountClient.Type = AccountType.Savings;
-                if (ComboBoxCurrency.Text == "РУБ")
-                    AccountClient.CurrencyType = CurrencyType.RUB;
-                if (ComboBoxCurrency.Text == "USA")
-                    AccountClient.CurrencyType = CurrencyType.USA;
-                if (ComboBoxCurrency.Text == "EUR")
-                    AccountClient.CurrencyType = CurrencyType.EUR;
+                newAccount.Balance.Money = 0;
+                newAccount.IsOpen = true;
+
+                newAccount.AccountNumber = NewRandomAccountNumber(ClientsList);
+                newAccount.GetTypeAccountClient(ComboBoxAccountType.Text);
+                newAccount.GetCurrencyTypeClient(ComboBoxCurrency.Text);
+
+                AccountClient.Add(newAccount);
 
                 Client NewClient = new(Surname, FirstName, LastName, PasportData, AccountClient);
                 ClientsList.Add(NewClient);
@@ -143,12 +142,14 @@ namespace BankA.ViewModel
             try
             {
                 //Сгенерированый рандомный номер лицевого счёта
-                long RandomAccountNumber = random.NextInt64();
+                NewAccountNumber = random.NextInt64();
 
-                BankInfo.GetCheckClientAccountNumber(clients, RandomAccountNumber);
-                NewAccountNumber = RandomAccountNumber;
+                BankInfo.GetCheckClientAccountNumber(clients, NewAccountNumber);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
 
             return NewAccountNumber;
         }
@@ -158,17 +159,17 @@ namespace BankA.ViewModel
         /// </summary>
         private void OpenNewAccountNumberToExistingClient()
         {
-            //if (ClientsList != null && DataClient != null)
-            //{
-            //    var newAccount = NewRandomAccountNumber(ClientsList);
-            //    var currency = ComboBoxCurrency.Text;
-            //    var type = ComboBoxAccountType.Text;
+            if (ClientsList != null && DataClient != null)
+            {
+                var newClientAccount = NewRandomAccountNumber(ClientsList);
+                var currency = ComboBoxCurrency.Text;
+                var type = ComboBoxAccountType.Text;
 
-            //    ClientsList.First(x => x.PasportData == DataClient.PasportData)
-            //        .AddAccount(newAccount,type,currency);
-                
-            //    BankInfo.SaveEditData(ClientsList);
-            //}
+                ClientsList.First(x => x.PasportData == DataClient.PasportData)
+                    .AddAccount(newClientAccount, type, currency);
+
+                BankInfo.SaveEditData(ClientsList);
+            }
         }
 
         #endregion
