@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,11 +65,16 @@ namespace BankA.ViewModel
             if (DataGridListPerson.SelectedItem is Client selected)
             {
                 SelectedData = selected;
+                AccountsInfoOfSelectedClient();
             }
-
-            AccountsInfoOfSelectedClient();
         }
 
+
+        /// <summary>
+        /// Выбор поля для изменения личных данных клиента
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckBoxChangeData_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -174,6 +180,7 @@ namespace BankA.ViewModel
                 accountsOfSelectedClient.Add(SelectedData.Account[i].AccountNumber);
 
             ComboBoxAccounts.ItemsSource = accountsOfSelectedClient;
+            ComboBoxAccounts.SelectedIndex = -1;
             textBlockType.Text = string.Empty;
             textBlockBalance.Text = string.Empty;
             textBlockCurrencyOfAccount.Text = string.Empty;
@@ -189,30 +196,36 @@ namespace BankA.ViewModel
         {
             try
             {
-                object _comboBoxItem = ((ComboBox)sender).SelectedItem;
-                string choiseComboBoxAccount = _comboBoxItem.ToString(); //выбранное значение в ComboBox
-
-                for (int i = 0; i < SelectedData.Account.Count; i++)
+                if (ComboBoxAccounts.SelectedItem != null)
                 {
-                    if (choiseComboBoxAccount == SelectedData.Account[i].AccountNumber.ToString())
+                    object _comboBoxItem = ((ComboBox)sender).SelectedItem;
+                    string choiseComboBoxAccount = _comboBoxItem.ToString(); //выбранное значение в ComboBox
+
+                    for (int i = 0; i < SelectedData.Account.Count; i++)
                     {
-                        textBlockBalance.Text = SelectedData.Account[i].Balance.Money.ToString();
-                        textBlockCurrencyOfAccount.Text = SelectedData.Account[i].CurrencyTypeClient.ToString();
-                        textBlockType.Text = SelectedData.Account[i].AccountTypeClient.ToString();
+                        if (choiseComboBoxAccount == SelectedData.Account[i].AccountNumber.ToString())
+                        {
+                            textBlockBalance.Text = SelectedData.Account[i].Balance.Money.ToString();
+                            textBlockCurrencyOfAccount.Text = SelectedData.Account[i].CurrencyTypeClient.ToString();
+                            textBlockType.Text = SelectedData.Account[i].AccountTypeClient.ToString();
 
-                        if (SelectedData.Account[i].AccountTypeClient == AccountType.Saving)
-                            textBlockType.Text = "Сберегательный";
-                        if (SelectedData.Account[i].AccountTypeClient == AccountType.Current)
-                            textBlockType.Text = "Текущий";
+                            if (SelectedData.Account[i].AccountTypeClient == AccountType.Saving)
+                                textBlockType.Text = "Сберегательный";
+                            if (SelectedData.Account[i].AccountTypeClient == AccountType.Current)
+                                textBlockType.Text = "Текущий";
 
-                        if (SelectedData.Account[i].IsOpen == true)
-                            textBlockStatusOfAccount.Text = "Открыт";
-                        if (SelectedData.Account[i].IsOpen == false)
-                            textBlockStatusOfAccount.Text = "Закрыт";
+                            if (SelectedData.Account[i].IsOpen == true)
+                                textBlockStatusOfAccount.Text = "Открыт";
+                            if (SelectedData.Account[i].IsOpen == false)
+                                textBlockStatusOfAccount.Text = "Закрыт";
+                        }
                     }
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion

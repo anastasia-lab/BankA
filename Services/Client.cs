@@ -49,14 +49,20 @@ namespace BankA.Services
 
         #region Метод
 
-        public void AddAccount(long account, string type, string newCurrency)
+        /// <summary>
+        /// Открытие (добавление) нового л/с существующему клиенту
+        /// </summary>
+        /// <param name="newAccount"> Новый л/с </param>
+        /// <param name="newType"> Тип л/с </param>
+        /// <param name="newCurrency"> Валюта л/с </param>
+        public void AddAccount(long newAccount, string newType, string newCurrency)
         {
             Account<BankInfo> addNewAccount = new();
-            addNewAccount.AccountNumber = account;
+            addNewAccount.AccountNumber = newAccount;
             addNewAccount.IsOpen = true;
             addNewAccount.Balance.Money = 0;
 
-            addNewAccount.GetTypeAccountClient(type);
+            addNewAccount.GetTypeAccountClient(newType);
             addNewAccount.GetCurrencyTypeClient(newCurrency);
 
             Account.Add(addNewAccount);

@@ -162,13 +162,14 @@ namespace BankA.ViewModel
             if (ClientsList != null && DataClient != null)
             {
                 var newClientAccount = NewRandomAccountNumber(ClientsList);
-                var currency = ComboBoxCurrency.Text;
-                var type = ComboBoxAccountType.Text;
+                var newCurrency = ComboBoxCurrency.Text;
+                var newType = ComboBoxAccountType.Text;
 
                 ClientsList.First(x => x.PasportData == DataClient.PasportData)
-                    .AddAccount(newClientAccount, type, currency);
+                    .AddAccount(newClientAccount, newType, newCurrency);
 
                 BankInfo.SaveEditData(ClientsList);
+                MessageBox.Show("Новый лицевой счёт добавлен.", "Информация!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

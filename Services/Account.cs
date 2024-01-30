@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static BankA.Services.Interfaces;
 
 namespace BankA.Services
@@ -36,10 +38,10 @@ namespace BankA.Services
             IsOpen = false;
         }
 
-        public Account(T inputBalance)
+        public Account(long _accountNumber, long money, string currency)
         {
-            Balance = inputBalance;
-            IsOpen = true;
+            AccountNumber = _accountNumber;
+            Balance.Money = money;
         }
 
         public Account(long accountNumber, bool isOpen, long money, string type, string currency)
@@ -77,16 +79,16 @@ namespace BankA.Services
 
         #region Методы
 
-        public T GetValue(long amount)
+        public virtual void GetValue(long amount)
         {
-            if (amount > Balance.Money)
-                throw new ArgumentException("Превышен лимит!");
+            //if (amount > Balance.Money)
+            //    throw new ArgumentException("Превышен лимит!");
 
-            Balance.Money -= amount;
-            T t = new();
-            t.Money += amount;
+            //Balance.Money -= amount;
+            //T t = new();
+            //t.Money += amount;
 
-            return t;
+            //return t;
         }
 
         public void SetValue(T value)
@@ -96,7 +98,6 @@ namespace BankA.Services
 
         public int Count
         { get; }
-
         public AccountType GetTypeAccountClient(string newAccountType)
         {
             if (newAccountType == "Текущий")
@@ -125,6 +126,43 @@ namespace BankA.Services
         }
 
         #endregion
+
+    }
+
+    public class Deposit : Account<BankInfo>
+    { 
+        public Deposit(long _accountNumber, long money, string currency) : base(_accountNumber, money, currency)
+        { }
+
+        /// <summary>
+        /// Перевод средств
+        /// </summary>
+        /// <param name="amount"> Сумма перевода</param>
+        public override void GetValue(long amount)
+        {
+            if(amount < 100)
+                this.Balance.Money += (amount * (long)0.05);
+            if (amount > 100 && amount < 1000)
+                this.Balance.Money += (amount * (long)0.25);
+            if (amount > 1000)
+                this.Balance.Money += (amount * (long)0.1);
+        }
+
+    }
+
+    public class NoneDeposit : Account<BankInfo>
+    {
+        public NoneDeposit(long _accountNumber, long money, string currency) : base(_accountNumber, money, currency)
+        { }
+
+        /// <summary>
+        /// Перевод средств
+        /// </summary>
+        /// <param name="amount"> Сумма перевода</param>
+        public override void GetValue(long amount)
+        {
+            this.Balance.Money += amount;
+        }
 
     }
 }
