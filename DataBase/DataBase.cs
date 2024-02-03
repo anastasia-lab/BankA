@@ -57,9 +57,9 @@ namespace BankA.DataBases
         {
             try
             {
+                Type[] types = new Type[] { typeof(Account<BankInfo>) };
                 XmlSerializer xmlSerializer = new(typeof(Client[]));
                 Client[] clients = clientsList.ToArray();
-
 
                 using FileStream fs = new("clients.xml", FileMode.OpenOrCreate);
                 xmlSerializer.Serialize(fs, clients);

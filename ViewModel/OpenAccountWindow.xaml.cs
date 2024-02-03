@@ -108,7 +108,6 @@ namespace BankA.ViewModel
 
 
                 newAccount.Balance.Money = 0;
-                newAccount.IsOpen = true;
 
                 newAccount.AccountNumber = NewRandomAccountNumber(ClientsList);
                 newAccount.GetTypeAccountClient(ComboBoxAccountType.Text);

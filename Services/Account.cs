@@ -10,12 +10,22 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using static BankA.Services.Interfaces;
 
 namespace BankA.Services
 {
-    public enum AccountType: int { Current, Saving }; // тип счёта: текущий, сбережения
+    public enum AccountType  { Current, Saving }; // тип счёта: текущий, сберегательный
     public enum CurrencyType { RUB, USA, EUR}; // тип валюты
+
+    /// <summary>
+    /// Лицевой счёт клиента
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+
+    [XmlInclude(typeof(Deposit))]
+    [XmlInclude(typeof(NoneDeposit))]
+
     public class Account<T> : IAccount<T>, INotifyPropertyChanged
         where T : BankInfo, new()
     {
@@ -35,13 +45,15 @@ namespace BankA.Services
         public Account()
         {
             Balance = new();
-            IsOpen = false;
+            IsOpen = true;
         }
 
-        public Account(long _accountNumber, long money, string currency)
+        public Account(long _accountNumber, long money, AccountType type)
         {
+            Balance = new();
             AccountNumber = _accountNumber;
             Balance.Money = money;
+            AccountTypeClient = type;
         }
 
         public Account(long accountNumber, bool isOpen, long money, string type, string currency)
@@ -79,35 +91,46 @@ namespace BankA.Services
 
         #region Методы
 
-        public virtual void GetValue(long amount)
+        /// <summary>
+        /// Пополнение баланса счёта
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public virtual long GetTransfer(long amount)
         {
-            //if (amount > Balance.Money)
-            //    throw new ArgumentException("Превышен лимит!");
-
-            //Balance.Money -= amount;
-            //T t = new();
-            //t.Money += amount;
-
-            //return t;
+            return amount;
         }
 
-        public void SetValue(T value)
+        public void SetValue(T accountIn, Account<BankInfo> accountOut, long amount)
         {
-            Balance.Money += value.Money;
+            accountIn.Money = Balance.Money + amount;
+            accountOut.Balance.Money = Balance.Money - amount;
         }
 
         public int Count
         { get; }
+
+        /// <summary>
+        /// Получение типа лицевого счёта клиента
+        /// </summary>
+        /// <param name="newAccountType"></param>
+        /// <returns> Возврат типа аккаунта</returns>
         public AccountType GetTypeAccountClient(string newAccountType)
         {
             if (newAccountType == "Текущий")
                 AccountTypeClient = AccountType.Current;
-            if (newAccountType == "Сберегающий")
+            if (newAccountType == "Сберегательный")
                 AccountTypeClient = AccountType.Saving;
 
             return AccountTypeClient;
         }
 
+
+        /// <summary>
+        /// Получение типа валюты клиента
+        /// </summary>
+        /// <param name="newCurrencyType"></param>
+        /// <returns> Возврат типа валюты </returns>
         public CurrencyType GetCurrencyTypeClient(string newCurrencyType)
         {
             if (newCurrencyType == "РУБ")
@@ -119,6 +142,7 @@ namespace BankA.Services
 
             return CurrencyTypeClient;
         }
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -129,39 +153,53 @@ namespace BankA.Services
 
     }
 
+    /// <summary>
+    /// Депозитный счет для типа "Сберегательный"
+    /// </summary>
     public class Deposit : Account<BankInfo>
     { 
-        public Deposit(long _accountNumber, long money, string currency) : base(_accountNumber, money, currency)
+        public Deposit(long _accountNumber, long money, AccountType type) : base(_accountNumber, money, type)
         { }
 
+        public Deposit() { }
+
         /// <summary>
-        /// Перевод средств
+        /// Пополнение средств
         /// </summary>
         /// <param name="amount"> Сумма перевода</param>
-        public override void GetValue(long amount)
+        public override long GetTransfer(long amount)
         {
-            if(amount < 100)
-                this.Balance.Money += (amount * (long)0.05);
+            if (amount < 100)
+                Balance.Money += (amount * (long)5);
             if (amount > 100 && amount < 1000)
-                this.Balance.Money += (amount * (long)0.25);
+                Balance.Money += (amount * (long)7);
             if (amount > 1000)
-                this.Balance.Money += (amount * (long)0.1);
+                Balance.Money += (amount * (long)10);
+
+            return Balance.Money;
         }
 
     }
 
+    /// <summary>
+    /// Недепозитный счёт для типа "Текущий"
+    /// </summary>
     public class NoneDeposit : Account<BankInfo>
     {
-        public NoneDeposit(long _accountNumber, long money, string currency) : base(_accountNumber, money, currency)
+        public NoneDeposit(long _accountNumber, long money, AccountType type) : base(_accountNumber, money, type)
         { }
 
+        public NoneDeposit() { }
+
         /// <summary>
-        /// Перевод средств
+        /// Пополнение средств
         /// </summary>
         /// <param name="amount"> Сумма перевода</param>
-        public override void GetValue(long amount)
+        public override long GetTransfer(long amount)
         {
             this.Balance.Money += amount;
+
+            return this.Balance.Money;
         }
 
     }

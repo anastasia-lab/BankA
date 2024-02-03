@@ -144,7 +144,8 @@
                   Content="Новый клиент" 
                   HorizontalAlignment="Left" 
                   Margin="80,112,0,0" 
-                  VerticalAlignment="Top"/>
+                  VerticalAlignment="Top"
+                  IsEnabled="False"/>
 
     </Grid>
 </Window>

@@ -16,12 +16,12 @@ namespace BankA.Services
 
         public interface ICovariance<out T>
         {
-           void GetValue(long amount);
+           long GetTransfer(long amount);
         }
 
         public interface IContrvariance<in T>
         {
-            void SetValue(T value);
+            void SetValue(T accountIn, Account<BankInfo> accountOut, long amount);
         }
     }
 }

@@ -348,7 +348,7 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" Grid.Column="2"/>
+                                Style="{StaticResource BackgroundButton}" Grid.Column="2" Click="buttonTransfer_Click"/>
 
                         <Button x:Name="buttonReplenish" 
                                 Content="Пополнить баланс" 
@@ -357,7 +357,7 @@
                                 VerticalAlignment="Top" 
                                 Height="26" 
                                 Width="124"
-                                Style="{StaticResource BackgroundButton}" Grid.Row="1" Grid.Column="2"/>
+                                Style="{StaticResource BackgroundButton}" Grid.Row="1" Grid.Column="2" Click="buttonReplenish_Click"/>
 
                         <ComboBox x:Name="ComboBoxAccounts" 
                                   ItemsSource="{Binding SelectedData.AccountsNumber, Mode=OneWay}"

@@ -228,6 +228,35 @@ namespace BankA.ViewModel
             }
         }
 
+        /// <summary>
+        /// Кнопка "Пополнить баланс"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonReplenish_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsList != null && SelectedData != null)
+            {
+                TransferWindow transfer = new TransferWindow(ClientsList, SelectedData, long.Parse(ComboBoxAccounts.Text));
+                transfer.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Кнопка "Перевести"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsList != null)
+            {
+                TransferWindow transfer = new TransferWindow(ClientsList);
+                transfer.ShowDialog();
+            }
+        }
+
         #endregion
+
     }
 }
