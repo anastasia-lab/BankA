@@ -249,10 +249,17 @@ namespace BankA.ViewModel
         /// <param name="e"></param>
         private void buttonTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientsList != null)
+            if (ClientsList != null && SelectedData!=null)
             {
-                TransferWindow transfer = new TransferWindow(ClientsList);
-                transfer.ShowDialog();
+                for (int i = 0; i < SelectedData.Account.Count; i++)
+                {
+                    if (SelectedData.Account[i].AccountTypeClient.ToString() == "Current" && SelectedData.Account[i].IsOpen == true
+                        && SelectedData.Account[i].Balance.Money != 0)
+                    {
+                        TransferWindow transfer = new TransferWindow(ClientsList, SelectedData);
+                        transfer.ShowDialog();
+                    }
+                }
             }
         }
 

@@ -13,18 +13,15 @@ namespace BankA.Services
     {
         #region Объявление переменных и свойств
 
-        // получение значения на счету клиента
+        // количество денег на счету клиента
         public long Money { get; set; }
-
-        // коллекция для хранения списка клиентов
-        //public ObservableCollection<Client> ClientBankAccount { get; set; }
 
         #endregion
 
         #region Конструктор
         public BankInfo()
         {
-            //ClientBankAccount = new ObservableCollection<Client>();
+            
         }
         #endregion
 

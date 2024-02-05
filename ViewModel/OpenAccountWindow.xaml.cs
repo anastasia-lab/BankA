@@ -23,10 +23,17 @@ namespace BankA.ViewModel
     public partial class OpenAccountWindow : Window
     {
         #region Объявление переменных
-        
+         
+        // Список всех клиентов
         public ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
+
+        // Данные выбранного клиента
         public Client DataClient { get; set; } = new Client();
+
+        // Индекс выбранного клиента в общем списке
         readonly int RecordIndex = 0;
+
+        //Для добавления нового лицевого счёта новому клиента
         ObservableCollection<Account<BankInfo>> AccountClient = new();
 
         #endregion
@@ -58,7 +65,6 @@ namespace BankA.ViewModel
             this.ClientsList = clients;
             this.DataClient = client;
             this.RecordIndex = recordIndex;
-            this.AccountClient = client.Account;
             checkBoxNewClient.IsChecked = false;
 
             GetShowSelectData();
@@ -129,7 +135,7 @@ namespace BankA.ViewModel
         }
 
         /// <summary>
-        /// Генерация номера счёта клиента из двух частей
+        /// Генерация нового номера лицевого счёта клиента
         /// </summary>
         /// <param name="clients">Список клиентов</param>
         /// <returns></returns>
@@ -143,6 +149,7 @@ namespace BankA.ViewModel
                 //Сгенерированый рандомный номер лицевого счёта
                 NewAccountNumber = random.NextInt64();
 
+                
                 BankInfo.GetCheckClientAccountNumber(clients, NewAccountNumber);
             }
             catch (Exception ex)

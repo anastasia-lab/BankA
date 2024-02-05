@@ -79,12 +79,29 @@ namespace BankA.Services
 
         #region Свойства
 
+        /// <summary>
+        /// Проверка статуса лицевого счёта
+        /// </summary>
         public bool IsOpen { get { return isOpen; } set { isOpen = value; OnPropertyChanged("IsOpen"); } }
 
+        /// <summary>
+        /// Номер лицевого счёта
+        /// </summary>
         public long AccountNumber { get { return accountNumber; } set { accountNumber = value; OnPropertyChanged("AccountNumber"); } }
+
+        /// <summary>
+        /// Баланс лицевого счёта
+        /// </summary>
         public T Balance { get { return balance; } set { balance = value; OnPropertyChanged("Balance"); } }
 
+        /// <summary>
+        /// Тип лицевого счёта
+        /// </summary>
         public AccountType AccountTypeClient { get { return accountType; } set { accountType = value; OnPropertyChanged("AccountType"); } }
+
+        /// <summary>
+        /// Типа валюты
+        /// </summary>
         public CurrencyType CurrencyTypeClient { get {  return currencyType; } set { currencyType = value; OnPropertyChanged("CurrencyType"); } }
 
         #endregion
@@ -101,12 +118,21 @@ namespace BankA.Services
             return amount;
         }
 
-        public void SetValue(T accountIn, Account<BankInfo> accountOut, long amount)
+        /// <summary>
+        /// Перевод средств между клиентами
+        /// </summary>
+        /// <param name="accountOut"> Клиент, который переводит средства</param>
+        /// <param name="accountOut"> Клиент, которому переводят средства</param>
+        /// <param name="amount"> Сумма перевода</param>
+        public void SetTransaction(Account<BankInfo> accountOut, Account<BankInfo> accountIn, long amount)
         {
-            accountIn.Money = Balance.Money + amount;
+            accountOut.Balance.Money = Balance.Money + amount;
             accountOut.Balance.Money = Balance.Money - amount;
         }
 
+        /// <summary>
+        /// Подсчёт количества лицевых счетов клиента
+        /// </summary>
         public int Count
         { get; }
 

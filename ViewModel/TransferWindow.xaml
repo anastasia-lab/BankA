@@ -27,11 +27,11 @@
                  Height="22" />
 
             <ComboBox x:Name="ComboBoxAccountNumberFromWhom" 
-                 HorizontalAlignment="Left" 
-                 Margin="106,19,0,0"
-                 VerticalAlignment="Top"
-                 Width="144"
-                 Height="22" SelectionChanged="ComboBoxAccountNumberFromWhom_SelectionChanged"/>
+                      HorizontalAlignment="Left" 
+                      Margin="106,19,0,0"
+                      VerticalAlignment="Top"
+                      Width="144"
+                      Height="22"/>
 
             <TextBlock x:Name="TextBlockFromWhom" 
                   HorizontalAlignment="Left"
@@ -63,7 +63,7 @@
             <ComboBox x:Name="ComboBoxToWhom" 
                      Width="144" 
                      Height="22"
-                     Margin="50,-17,0,0"/>
+                     Margin="50,-17,0,0" SelectionChanged="ComboBoxToWhom_SelectionChanged"/>
 
             <ComboBox x:Name="ComboBoxAccountNumberToWhom" 
                      Width="144"

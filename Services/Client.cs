@@ -20,6 +20,10 @@ namespace BankA.Services
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PasportData { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Список лицевых счетов
+        /// </summary>
         public ObservableCollection<Account<BankInfo>> Account { get; set; } = new ObservableCollection<Account<BankInfo>>();
 
         #endregion
@@ -60,7 +64,7 @@ namespace BankA.Services
         #region Метод
 
         /// <summary>
-        /// Открытие (добавление) нового л/с существующему клиенту
+        /// Открытие нового л/с существующему клиенту
         /// </summary>
         /// <param name="newAccount"> Новый л/с </param>
         /// <param name="newType"> Тип л/с </param>
