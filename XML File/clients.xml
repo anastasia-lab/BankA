@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfClient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Client>
+    <Surname>Купер</Surname>
+    <FirstName>Шелдон</FirstName>
+    <LastName>Джорджович</LastName>
+    <PasportData>1236 456987</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>1839318948042554824</AccountNumber>
+        <Balance>
+          <Money>165</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+  <Client>
     <Surname>Сидоров </Surname>
     <FirstName>Валентин</FirstName>
     <LastName>Сергеевич</LastName>
     <PasportData>9851 230198</PasportData>
     <Account>
-      <AccountOfBankInfo>
+      <AccountOfBankInfo xsi:type="Deposit">
         <IsOpen>true</IsOpen>
         <AccountNumber>3068372627171197876</AccountNumber>
         <Balance>
@@ -15,11 +32,11 @@
         <AccountTypeClient>Saving</AccountTypeClient>
         <CurrencyTypeClient>EUR</CurrencyTypeClient>
       </AccountOfBankInfo>
-      <AccountOfBankInfo>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
         <IsOpen>true</IsOpen>
         <AccountNumber>1212340076685885397</AccountNumber>
         <Balance>
-          <Money>150</Money>
+          <Money>200</Money>
         </Balance>
         <AccountTypeClient>Current</AccountTypeClient>
         <CurrencyTypeClient>RUB</CurrencyTypeClient>
@@ -32,28 +49,11 @@
     <LastName>Иванович</LastName>
     <PasportData>5036 451208</PasportData>
     <Account>
-      <AccountOfBankInfo>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
         <IsOpen>true</IsOpen>
         <AccountNumber>1732596279229724973</AccountNumber>
         <Balance>
           <Money>26970</Money>
-        </Balance>
-        <AccountTypeClient>Current</AccountTypeClient>
-        <CurrencyTypeClient>RUB</CurrencyTypeClient>
-      </AccountOfBankInfo>
-    </Account>
-  </Client>
-  <Client>
-    <Surname>Копытин</Surname>
-    <FirstName>Олег</FirstName>
-    <LastName>Львович</LastName>
-    <PasportData>1975 498753</PasportData>
-    <Account>
-      <AccountOfBankInfo>
-        <IsOpen>true</IsOpen>
-        <AccountNumber>9732790244429214953</AccountNumber>
-        <Balance>
-          <Money>97300</Money>
         </Balance>
         <AccountTypeClient>Current</AccountTypeClient>
         <CurrencyTypeClient>RUB</CurrencyTypeClient>

@@ -30,12 +30,6 @@ namespace BankA.ViewModel
         // Данные выбранного клиента
         public Client DataClient { get; set; } = new Client();
 
-        // Индекс выбранного клиента в общем списке
-        readonly int RecordIndex = 0;
-
-        //Для добавления нового лицевого счёта новому клиента
-        ObservableCollection<Account<BankInfo>> AccountClient = new();
-
         #endregion
 
         #region Конструкторы
@@ -58,13 +52,12 @@ namespace BankA.ViewModel
         /// <param name="clients">Список клиентов</param>
         /// <param name="client">Данные выбранного клиента из списка</param>
         /// <param name="recordIndex">Индекс выбранного клиента из списка</param>
-        public OpenAccountWindow(ObservableCollection<Client> clients, Client client, int recordIndex)
+        public OpenAccountWindow(ObservableCollection<Client> clients, Client client)
         {
             InitializeComponent();
 
             this.ClientsList = clients;
             this.DataClient = client;
-            this.RecordIndex = recordIndex;
             checkBoxNewClient.IsChecked = false;
 
             GetShowSelectData();
@@ -106,14 +99,23 @@ namespace BankA.ViewModel
         {
             try
             {
+                //Для добавления лицевого счёта новому клиента
+                ObservableCollection<Account<BankInfo>> AccountClient = new();
+
                 Account<BankInfo> newAccount = new ();
                 string Surname = textBoxSurnameAccount.Text;
                 string FirstName = textBoxFirstNameAccount.Text;
                 string LastName = textBoxLastNameAccount.Text;
                 string PasportData = textBoxPasportAccount.Text;
 
+                for (int i = 0; i < ClientsList.Count; i++)
+                {
+                    if (PasportData == ClientsList[i].PasportData)
+                        MessageBox.Show("Проверьте корректность паспортных данных", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
                 newAccount.Balance.Money = 0;
+                newAccount.IsOpen = true;
 
                 newAccount.AccountNumber = NewRandomAccountNumber(ClientsList);
                 newAccount.GetTypeAccountClient(ComboBoxAccountType.Text);
@@ -130,7 +132,6 @@ namespace BankA.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
             }
         }
 
@@ -165,17 +166,24 @@ namespace BankA.ViewModel
         /// </summary>
         private void OpenNewAccountNumberToExistingClient()
         {
-            if (ClientsList != null && DataClient != null)
+            try
             {
-                var newClientAccount = NewRandomAccountNumber(ClientsList);
-                var newCurrency = ComboBoxCurrency.Text;
-                var newType = ComboBoxAccountType.Text;
+                if (ClientsList != null && DataClient != null)
+                {
+                    var newClientAccount = NewRandomAccountNumber(ClientsList);
+                    var newCurrency = ComboBoxCurrency.Text;
+                    var newType = ComboBoxAccountType.Text;
 
-                ClientsList.First(x => x.PasportData == DataClient.PasportData)
-                    .AddAccount(newClientAccount, newType, newCurrency);
+                    ClientsList.First(x => x.PasportData == DataClient.PasportData)
+                        .AddAccount(newClientAccount, newType, newCurrency);
 
-                BankInfo.SaveEditData(ClientsList);
-                MessageBox.Show("Новый лицевой счёт добавлен.", "Информация!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BankInfo.SaveEditData(ClientsList);
+                    MessageBox.Show("Новый лицевой счёт добавлен.", "Информация!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

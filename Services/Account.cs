@@ -48,23 +48,25 @@ namespace BankA.Services
             IsOpen = true;
         }
 
-        public Account(long _accountNumber, long money, AccountType type)
+        public Account(long _accountNumber,bool isOpen, long money, AccountType type)
         {
             Balance = new();
             AccountNumber = _accountNumber;
             Balance.Money = money;
             AccountTypeClient = type;
+            IsOpen = isOpen;
         }
 
         public Account(long accountNumber, bool isOpen, long money, string type, string currency)
         {
+            Balance = new();
             this.AccountNumber = accountNumber;
             this.IsOpen = isOpen;
             this.Balance.Money = money;
 
             if (type == "Текущий")
                 AccountTypeClient = AccountType.Current;
-            if (type == "Сберегающий")
+            if (type == "Сберегательный")
                 AccountTypeClient = AccountType.Saving;
 
             if (currency == "РУБ")
@@ -126,8 +128,8 @@ namespace BankA.Services
         /// <param name="amount"> Сумма перевода</param>
         public void SetTransaction(Account<BankInfo> accountOut, Account<BankInfo> accountIn, long amount)
         {
-            accountOut.Balance.Money = Balance.Money + amount;
-            accountOut.Balance.Money = Balance.Money - amount;
+            accountOut.Balance.Money = accountOut.Balance.Money - amount;
+            accountIn.Balance.Money = accountIn.Balance.Money + amount;
         }
 
         /// <summary>
@@ -137,7 +139,7 @@ namespace BankA.Services
         { get; }
 
         /// <summary>
-        /// Получение типа лицевого счёта клиента
+        /// Получение типа лицевого счёта для нового клиента
         /// </summary>
         /// <param name="newAccountType"></param>
         /// <returns> Возврат типа аккаунта</returns>
@@ -153,7 +155,7 @@ namespace BankA.Services
 
 
         /// <summary>
-        /// Получение типа валюты клиента
+        /// Получение типа валюты для нового клиента
         /// </summary>
         /// <param name="newCurrencyType"></param>
         /// <returns> Возврат типа валюты </returns>
@@ -171,8 +173,7 @@ namespace BankA.Services
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         #endregion
@@ -184,7 +185,7 @@ namespace BankA.Services
     /// </summary>
     public class Deposit : Account<BankInfo>
     { 
-        public Deposit(long _accountNumber, long money, AccountType type) : base(_accountNumber, money, type)
+        public Deposit(long _accountNumber,bool isOpen, long money, AccountType type) : base(_accountNumber,isOpen, money, type)
         { }
 
         public Deposit() { }
@@ -196,11 +197,11 @@ namespace BankA.Services
         public override long GetTransfer(long amount)
         {
             if (amount < 100)
-                Balance.Money += (amount * (long)5);
+                Balance.Money += (amount * 5);
             if (amount > 100 && amount < 1000)
-                Balance.Money += (amount * (long)7);
+                Balance.Money += (amount * 7);
             if (amount > 1000)
-                Balance.Money += (amount * (long)10);
+                Balance.Money += (amount * 10);
 
             return Balance.Money;
         }
@@ -212,7 +213,7 @@ namespace BankA.Services
     /// </summary>
     public class NoneDeposit : Account<BankInfo>
     {
-        public NoneDeposit(long _accountNumber, long money, AccountType type) : base(_accountNumber, money, type)
+        public NoneDeposit(long _accountNumber, bool isOpen, long money, AccountType type) : base(_accountNumber, isOpen, money, type)
         { }
 
         public NoneDeposit() { }

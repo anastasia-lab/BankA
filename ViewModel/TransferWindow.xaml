@@ -20,11 +20,11 @@
         <StackPanel x:Name="StackPanelFromWhom" Grid.Row="0" Grid.Column="0">
 
             <ComboBox x:Name="ComboBoxFromWhom" 
-                 HorizontalAlignment="Left" 
-                 Margin="106,10,0,0"
-                 VerticalAlignment="Top"
-                 Width="144"
-                 Height="22" />
+                      HorizontalAlignment="Left" 
+                      Margin="106,10,0,0"
+                      VerticalAlignment="Top"
+                      Width="144"
+                      Height="22" />
 
             <ComboBox x:Name="ComboBoxAccountNumberFromWhom" 
                       HorizontalAlignment="Left" 
@@ -34,22 +34,22 @@
                       Height="22"/>
 
             <TextBlock x:Name="TextBlockFromWhom" 
-                  HorizontalAlignment="Left"
-                  Margin="10,-60,0,0" 
-                  TextWrapping="Wrap"
-                  Text="От кого"
-                  VerticalAlignment="Top"
-                  Height="16" 
-                  Width="82"/>
+                       HorizontalAlignment="Left"
+                       Margin="10,-60,0,0" 
+                       TextWrapping="Wrap"
+                       Text="От кого"
+                       VerticalAlignment="Top"
+                       Height="16" 
+                       Width="82"/>
 
             <TextBlock x:Name="TextBlockc" 
-                  HorizontalAlignment="Left" 
-                  Margin="10,-19,0,0"
-                  TextWrapping="Wrap"
-                  Text="Лицевой счёт"
-                  VerticalAlignment="Top" 
-                  Height="16"
-                  Width="91"/>
+                       HorizontalAlignment="Left" 
+                       Margin="10,-19,0,0"
+                       TextWrapping="Wrap"
+                       Text="Лицевой счёт"
+                       VerticalAlignment="Top" 
+                       Height="16"
+                       Width="91"/>
         </StackPanel>
 
         <StackPanel x:Name="StackPanelToWhom" Grid.Row="0" Grid.Column="1">
@@ -61,47 +61,50 @@
                       Margin="-240,12,0,0"/>
 
             <ComboBox x:Name="ComboBoxToWhom" 
-                     Width="144" 
-                     Height="22"
-                     Margin="50,-17,0,0" SelectionChanged="ComboBoxToWhom_SelectionChanged"/>
+                      Width="144" 
+                      Height="22"
+                      Margin="50,-17,0,0" 
+                      SelectionChanged="ComboBoxToWhom_SelectionChanged"/>
 
             <ComboBox x:Name="ComboBoxAccountNumberToWhom" 
-                     Width="144"
-                     Height="22"
-                     Margin="50,18,0,0"/>
+                      Width="144"
+                      Height="22"
+                      Margin="50,18,0,0"/>
 
             <TextBlock x:Name="TextBlockAccountNumberToWhom" 
-                      TextWrapping="Wrap"
-                      Text="Лицевой счёт" 
-                      Width="80"
-                      Margin="-200,-20,0,0" Height="17"/>
+                       TextWrapping="Wrap"
+                       Text="Лицевой счёт" 
+                       Width="80"
+                       Margin="-200,-20,0,0" 
+                       Height="17"/>
 
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="2" 
-                   Margin="0,87,0,0" 
-                   Grid.RowSpan="2">
+                    Margin="0,87,0,0" 
+                    Grid.RowSpan="2">
 
             <TextBlock x:Name="TextBlockSummTransfer" 
-                  HorizontalAlignment="Left" 
-                  Margin="145,55,0,0" 
-                  Grid.Row="1" 
-                  TextWrapping="Wrap" 
-                  Text="Сумма перевода" 
-                  VerticalAlignment="Top"
-                  Width="100"/>
+                       HorizontalAlignment="Left" 
+                       Margin="145,55,0,0" 
+                       Grid.Row="1" 
+                       TextWrapping="Wrap" 
+                       Text="Сумма перевода" 
+                       VerticalAlignment="Top"
+                       Width="100"/>
 
             <TextBox x:Name="TextBoxSummTransfer" 
-                    TextWrapping="Wrap" 
-                    Width="120"
-                    Margin="100,-20,0,0" 
-                    Height="23"/>
+                     TextWrapping="Wrap" 
+                     Width="120"
+                     Margin="100,-20,0,0" 
+                     Height="23"/>
 
             <Button x:Name="ButtonTransfer" 
-                   Content="Пополнение счёта" 
-                   Width="120"
-                   Height="25"
-                   Margin="0,20,0,0" Click="ButtonTransfer_Click"/>
+                    Content="Пополнение счёта" 
+                    Width="120"
+                    Height="25"
+                    Margin="0,20,0,0" 
+                    Click="ButtonTransfer_Click"/>
         </StackPanel>
 
 

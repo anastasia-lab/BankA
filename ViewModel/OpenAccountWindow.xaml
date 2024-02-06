@@ -39,6 +39,7 @@
             <ColumnDefinition Width="269*"/>
             <ColumnDefinition Width="312*"/>
         </Grid.ColumnDefinitions>
+        
         <Label x:Name="labelSurnameAccount" 
                Content="Фамилия" 
                HorizontalAlignment="Left" 
@@ -139,6 +140,7 @@
                 VerticalAlignment="Top"
                 Style="{StaticResource BackgroundButton}" 
                 Click="ButtonOpenAccount_Click"/>
+        
         <CheckBox x:Name="checkBoxNewClient" 
                   Grid.Column="1" 
                   Content="Новый клиент" 

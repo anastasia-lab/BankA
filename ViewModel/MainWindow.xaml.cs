@@ -31,7 +31,7 @@ namespace BankA.ViewModel
 
         //Список всех клиентов
         public ObservableCollection<Client> ClientsList { get; set; } = new ObservableCollection<Client>();
-        
+
         #endregion
 
         #region Конструктор
@@ -89,17 +89,15 @@ namespace BankA.ViewModel
         {
             try
             {
-                if (ClientsList != null && SelectedData != null)
-                {   
-                    //Индекс выбранного клиента в общем списке
-                    int RecordIndex = ClientsList.IndexOf(SelectedData);
-
-                    OpenAccountWindow OpenNewAccount = new(ClientsList, SelectedData, RecordIndex);
+                if (ClientsList != null && !string.IsNullOrEmpty(SelectedData.ToString()))
+                {
+                    OpenAccountWindow OpenNewAccount = new(ClientsList, SelectedData);
                     OpenNewAccount.ShowDialog();
-                    this.Close();
                 }
+                else { MessageBox.Show("Выберите клиента для открытия нового счёта", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information); }
             }
-            catch { }
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning); }
         }
 
         /// <summary>
@@ -122,7 +120,7 @@ namespace BankA.ViewModel
         {
             try
             {
-                if (ClientsList != null && SelectedData != null)
+                if (ClientsList != null && !string.IsNullOrEmpty(SelectedData.ToString()))
                 {
                     for (int i = 0; i < SelectedData.Account.Count; i++)
                     {
@@ -207,7 +205,7 @@ namespace BankA.ViewModel
                         {
                             textBlockBalance.Text = SelectedData.Account[i].Balance.Money.ToString();
                             textBlockCurrencyOfAccount.Text = SelectedData.Account[i].CurrencyTypeClient.ToString();
-                            textBlockType.Text = SelectedData.Account[i].AccountTypeClient.ToString();
+                            //textBlockType.Text = SelectedData.Account[i].AccountTypeClient.ToString();
 
                             if (SelectedData.Account[i].AccountTypeClient == AccountType.Saving)
                                 textBlockType.Text = "Сберегательный";
@@ -224,7 +222,7 @@ namespace BankA.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -233,12 +231,26 @@ namespace BankA.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonReplenish_Click(object sender, RoutedEventArgs e)
+        private void ButtonReplenish_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientsList != null && SelectedData != null)
+            try
             {
-                TransferWindow transfer = new TransferWindow(ClientsList, SelectedData, long.Parse(ComboBoxAccounts.Text));
-                transfer.ShowDialog();
+                if (ComboBoxAccounts.Text == "")
+                {
+                    MessageBox.Show("Выберите лицевой счёт",
+                            "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (ClientsList != null && !string.IsNullOrEmpty(SelectedData.ToString()))
+                {
+                    TransferWindow transfer = new(ClientsList, SelectedData, long.Parse(ComboBoxAccounts.Text),
+                        ButtonReplenish.Content.ToString());
+                    transfer.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -247,19 +259,32 @@ namespace BankA.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonTransfer_Click(object sender, RoutedEventArgs e)
+        private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientsList != null && SelectedData!=null)
+            try
             {
-                for (int i = 0; i < SelectedData.Account.Count; i++)
+                if (ClientsList != null && !string.IsNullOrEmpty(SelectedData.ToString()))
                 {
-                    if (SelectedData.Account[i].AccountTypeClient.ToString() == "Current" && SelectedData.Account[i].IsOpen == true
-                        && SelectedData.Account[i].Balance.Money != 0)
+                    for (int i = 0; i < SelectedData.Account.Count; i++)
                     {
-                        TransferWindow transfer = new TransferWindow(ClientsList, SelectedData);
-                        transfer.ShowDialog();
+                        if (ComboBoxAccounts.Text == "")
+                        {
+                            MessageBox.Show("Выберите лицевой счёт",
+                                    "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        if (SelectedData.Account[i].AccountTypeClient.ToString() == "Current" && SelectedData.Account[i].IsOpen == true
+                            && SelectedData.Account[i].Balance.Money != 0)
+                        {
+                            TransferWindow transfer = new(ClientsList, SelectedData, ButtonTransfer.Content.ToString());
+                            transfer.ShowDialog();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

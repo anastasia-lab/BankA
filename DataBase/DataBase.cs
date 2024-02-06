@@ -32,12 +32,14 @@ namespace BankA.DataBases
                     {
                         for (int i = 0; i < 1; i++)
                         {
-                            clients[i] = new();
-                            clients[i].Surname = client.Surname;
-                            clients[i].FirstName = client.FirstName;
-                            clients[i].LastName = client.LastName;
-                            clients[i].PasportData = client.PasportData;
-                            clients[i].Account = client.Account;
+                            clients[i] = new()
+                            {
+                                Surname = client.Surname,
+                                FirstName = client.FirstName,
+                                LastName = client.LastName,
+                                PasportData = client.PasportData,
+                                Account = client.Account
+                            };
 
                             clientsList.Add(clients[i]);
                         }
@@ -57,7 +59,6 @@ namespace BankA.DataBases
         {
             try
             {
-                Type[] types = new Type[] { typeof(Account<BankInfo>) };
                 XmlSerializer xmlSerializer = new(typeof(Client[]));
                 Client[] clients = clientsList.ToArray();
 
