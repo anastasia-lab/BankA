@@ -94,7 +94,8 @@ namespace BankA.ViewModel
                     OpenAccountWindow OpenNewAccount = new(ClientsList, SelectedData);
                     OpenNewAccount.ShowDialog();
                 }
-                else { MessageBox.Show("Выберите клиента для открытия нового счёта", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information); }
+                else { MessageBox.Show("Выберите клиента для открытия нового счёта", 
+                    "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information); }
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning); }
@@ -205,7 +206,6 @@ namespace BankA.ViewModel
                         {
                             textBlockBalance.Text = SelectedData.Account[i].Balance.Money.ToString();
                             textBlockCurrencyOfAccount.Text = SelectedData.Account[i].CurrencyTypeClient.ToString();
-                            //textBlockType.Text = SelectedData.Account[i].AccountTypeClient.ToString();
 
                             if (SelectedData.Account[i].AccountTypeClient == AccountType.Saving)
                                 textBlockType.Text = "Сберегательный";
@@ -271,6 +271,27 @@ namespace BankA.ViewModel
                         {
                             MessageBox.Show("Выберите лицевой счёт",
                                     "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        if (ComboBoxAccounts.Text == SelectedData.Account[i].AccountNumber.ToString() &&
+                            SelectedData.Account[i].Balance.Money == 0)
+                        {
+                            MessageBox.Show("Для перевода средств пополните баланс счёта.",
+                                    "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        if (ComboBoxAccounts.Text == SelectedData.Account[i].AccountNumber.ToString() && 
+                            SelectedData.Account[i].IsOpen == false)
+                        {
+                            MessageBox.Show("Данный счёт закрыт. Для перевода откройте новый счёт или выберите другой.",
+                                    "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        if (ComboBoxAccounts.Text == SelectedData.Account[i].AccountNumber.ToString() && 
+                            SelectedData.Account[i].AccountTypeClient == AccountType.Saving)
+                        {
+                            MessageBox.Show("Вы выбрали сберегательный счёт. Для перевода средств другому клинту выберите текущий счёт.",
+                                    "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
                         if (SelectedData.Account[i].AccountTypeClient.ToString() == "Current" && SelectedData.Account[i].IsOpen == true

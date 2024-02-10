@@ -125,10 +125,16 @@ namespace BankA.ViewModel
                             accountOut = client;
                         if (client.AccountNumber.ToString() == ComboBoxAccountNumberToWhom.Text)
                             accountIn = client;
-
                     }
                 }
-                Clients.First().Account.First().SetTransaction(accountOut, accountIn, long.Parse(TextBoxSummTransfer.Text));
+
+                if (accountOut.Balance.Money == 0)
+                {
+                    MessageBox.Show("Недостаточно средст для перевода на другой счёт. Пожалуйста, пополните баланс.", 
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                    Clients.First().Account.First().SetTransaction(accountOut, accountIn, long.Parse(TextBoxSummTransfer.Text));
 
                 BankInfo.SaveEditData(Clients);
                 MessageBox.Show("Перевод средств выполнен.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -151,7 +157,10 @@ namespace BankA.ViewModel
 
             List<long> AccountClientFrom = new();
             for (int i = 0; i < SelectedClient.Account.Count; i++)
-                AccountClientFrom.Add(SelectedClient.Account[i].AccountNumber);
+            {
+                if (SelectedClient.Account[i].AccountTypeClient.ToString() == "Current")
+                    AccountClientFrom.Add(SelectedClient.Account[i].AccountNumber);
+            }    
             ComboBoxAccountNumberFromWhom.ItemsSource = AccountClientFrom;
 
             List<string> FIOClientToTransfer = new();
