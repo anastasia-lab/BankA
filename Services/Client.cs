@@ -51,9 +51,11 @@ namespace BankA.Services
                 foreach (var account in accounts)
                 {
                     if (account.AccountTypeClient.ToString() == "Saving")
-                        this.Account.Add(new Deposit (account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient));
+                        this.Account.Add(new Deposit (account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient,
+                            account.CurrencyTypeClient));
                     if (account.AccountTypeClient.ToString() == "Current")
-                        this.Account.Add(new NoneDeposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient));
+                        this.Account.Add(new NoneDeposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient,
+                            account.CurrencyTypeClient));
                 }
             }
         }
@@ -72,9 +74,11 @@ namespace BankA.Services
         {
             Account<BankInfo> account = new(newAccount, true, 0, newType, newCurrency);
             if(account.AccountTypeClient.ToString() == "Saving")
-                Account.Add(new Deposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient));
+                Account.Add(new Deposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient,
+                    account.CurrencyTypeClient));
             if (account.AccountTypeClient.ToString() == "Current")
-                Account.Add(new NoneDeposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient));
+                Account.Add(new NoneDeposit(account.AccountNumber, true, account.Balance.Money, account.AccountTypeClient,
+                    account.CurrencyTypeClient));
         }
 
         #endregion

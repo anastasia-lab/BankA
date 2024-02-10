@@ -48,13 +48,14 @@ namespace BankA.Services
             IsOpen = true;
         }
 
-        public Account(long _accountNumber,bool isOpen, long money, AccountType type)
+        public Account(long _accountNumber,bool isOpen, long money, AccountType type, CurrencyType currencyType)
         {
             Balance = new();
             AccountNumber = _accountNumber;
             Balance.Money = money;
             AccountTypeClient = type;
             IsOpen = isOpen;
+            CurrencyTypeClient = currencyType;
         }
 
         public Account(long accountNumber, bool isOpen, long money, string type, string currency)
@@ -185,7 +186,8 @@ namespace BankA.Services
     /// </summary>
     public class Deposit : Account<BankInfo>
     { 
-        public Deposit(long _accountNumber,bool isOpen, long money, AccountType type) : base(_accountNumber,isOpen, money, type)
+        public Deposit(long _accountNumber,bool isOpen, long money, AccountType type, CurrencyType currencyType) 
+            : base(_accountNumber,isOpen, money, type, currencyType)
         { }
 
         public Deposit() { }
@@ -213,7 +215,8 @@ namespace BankA.Services
     /// </summary>
     public class NoneDeposit : Account<BankInfo>
     {
-        public NoneDeposit(long _accountNumber, bool isOpen, long money, AccountType type) : base(_accountNumber, isOpen, money, type)
+        public NoneDeposit(long _accountNumber, bool isOpen, long money, AccountType type, CurrencyType currencyType) 
+            : base(_accountNumber, isOpen, money, type, currencyType)
         { }
 
         public NoneDeposit() { }

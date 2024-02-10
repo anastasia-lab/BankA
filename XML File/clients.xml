@@ -61,41 +61,6 @@
     </Account>
   </Client>
   <Client>
-    <Surname>Афанасьев</Surname>
-    <FirstName>Игорь</FirstName>
-    <LastName>Ибрагимович</LastName>
-    <PasportData>1236 123789</PasportData>
-    <Account>
-      <AccountOfBankInfo xsi:type="Deposit">
-        <IsOpen>true</IsOpen>
-        <AccountNumber>4376989887443312334</AccountNumber>
-        <Balance>
-          <Money>15600</Money>
-        </Balance>
-        <AccountTypeClient>Saving</AccountTypeClient>
-        <CurrencyTypeClient>RUB</CurrencyTypeClient>
-      </AccountOfBankInfo>
-      <AccountOfBankInfo>
-        <IsOpen>true</IsOpen>
-        <AccountNumber>6076001792032735532</AccountNumber>
-        <Balance>
-          <Money>0</Money>
-        </Balance>
-        <AccountTypeClient>Current</AccountTypeClient>
-        <CurrencyTypeClient>USA</CurrencyTypeClient>
-      </AccountOfBankInfo>
-      <AccountOfBankInfo>
-        <IsOpen>true</IsOpen>
-        <AccountNumber>6216030551037155046</AccountNumber>
-        <Balance>
-          <Money>150</Money>
-        </Balance>
-        <AccountTypeClient>Current</AccountTypeClient>
-        <CurrencyTypeClient>EUR</CurrencyTypeClient>
-      </AccountOfBankInfo>
-    </Account>
-  </Client>
-  <Client>
     <Surname>Петров</Surname>
     <FirstName>Иван</FirstName>
     <LastName>Иванович</LastName>
