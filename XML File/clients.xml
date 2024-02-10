@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfClient xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Client>
+    <Surname>Купер</Surname>
+    <FirstName>Шелдон</FirstName>
+    <LastName>Джорджович</LastName>
+    <PasportData>1236 456987</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>1839318948042554824</AccountNumber>
+        <Balance>
+          <Money>165</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+  <Client>
+    <Surname>Сидоров </Surname>
+    <FirstName>Валентин</FirstName>
+    <LastName>Сергеевич</LastName>
+    <PasportData>9851 230198</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="Deposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>3068372627171197876</AccountNumber>
+        <Balance>
+          <Money>1000</Money>
+        </Balance>
+        <AccountTypeClient>Saving</AccountTypeClient>
+        <CurrencyTypeClient>EUR</CurrencyTypeClient>
+      </AccountOfBankInfo>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>1212340076685885397</AccountNumber>
+        <Balance>
+          <Money>200</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+  <Client>
+    <Surname>Иванов</Surname>
+    <FirstName>Пётр</FirstName>
+    <LastName>Иванович</LastName>
+    <PasportData>5036 451208</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>1732596279229724973</AccountNumber>
+        <Balance>
+          <Money>26820</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+  <Client>
+    <Surname>Афанасьев</Surname>
+    <FirstName>Игорь</FirstName>
+    <LastName>Ибрагимович</LastName>
+    <PasportData>1236 123789</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="Deposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>4376989887443312334</AccountNumber>
+        <Balance>
+          <Money>15600</Money>
+        </Balance>
+        <AccountTypeClient>Saving</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+      <AccountOfBankInfo>
+        <IsOpen>true</IsOpen>
+        <AccountNumber>6076001792032735532</AccountNumber>
+        <Balance>
+          <Money>0</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>USA</CurrencyTypeClient>
+      </AccountOfBankInfo>
+      <AccountOfBankInfo>
+        <IsOpen>true</IsOpen>
+        <AccountNumber>6216030551037155046</AccountNumber>
+        <Balance>
+          <Money>150</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>EUR</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+  <Client>
+    <Surname>Петров</Surname>
+    <FirstName>Иван</FirstName>
+    <LastName>Иванович</LastName>
+    <PasportData>1325 795214</PasportData>
+    <Account>
+      <AccountOfBankInfo xsi:type="NoneDeposit">
+        <IsOpen>true</IsOpen>
+        <AccountNumber>3279574947675038025</AccountNumber>
+        <Balance>
+          <Money>0</Money>
+        </Balance>
+        <AccountTypeClient>Current</AccountTypeClient>
+        <CurrencyTypeClient>RUB</CurrencyTypeClient>
+      </AccountOfBankInfo>
+    </Account>
+  </Client>
+</ArrayOfClient>
